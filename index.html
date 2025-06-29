@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogRack - Professional Blogging Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5d4fcf;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --accent-dark: #e66797;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --gray: #636e72;
+            --light-gray: #dfe6e9;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --info: #0984e3;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .gradient-accent-bg {
+            background: linear-gradient(135deg, var(--accent) 0%, #ff7675 100%);
+            color: white;
+        }
+
+        .gradient-success-bg {
+            background: linear-gradient(135deg, var(--success) 0%, #55efc4 100%);
+            color: white;
+        }
+
+        .gradient-warning-bg {
+            background: linear-gradient(135deg, var(--warning) 0%, #ffeaa7 100%);
+            color: var(--dark);
+        }
+
+        .gradient-danger-bg {
+            background: linear-gradient(135deg, var(--danger) 0%, #ff7675 100%);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 8px 15px;
+            border-radius: 30px;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .btn i {
+            font-size: 18px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, #ff7675 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(253, 121, 168, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(108, 92, 231, 0.05)" points="0,100 100,0 100,100"/></svg>');
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .dashboard {
+            padding: 80px 0;
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            color: var(--dark);
+            text-align: center;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 5px;
+        }
+
+        .privacy-notice {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #ffeeba;
+            font-size: 16px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .search-container {
+            display: flex;
+            margin-bottom: 30px;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 25px;
+            border: 2px solid var(--light-gray);
+            border-radius: 50px;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2);
+        }
+
+        .search-btn {
+            padding: 15px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .filter-tab {
+            padding: 12px 25px;
+            background: white;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+            font-weight: 600;
+            border: 2px solid transparent;
+        }
+
+        .filter-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-card-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blog-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .blog-card:hover .blog-card-img img {
+            transform: scale(1.05);
+        }
+
+        .blog-card-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card-category {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--info) 0%, #74b9ff 100%);
+            color: white;
+            align-self: flex-start;
+        }
+
+        .blog-card-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            flex: 1;
+        }
+
+        .blog-card-excerpt {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: var(--gray);
+            border-top: 1px solid var(--light-gray);
+            padding-top: 20px;
+            margin-top: auto;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .auth-form {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            flex: 1;
+        }
+
+        .auth-form h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+            font-size: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 16px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.1);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 16px;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .editor-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            flex: 1;
+        }
+
+        .editor-container h2 {
+            margin-bottom: 40px;
+            color: var(--primary);
+            text-align: center;
+            font-size: 32px;
+        }
+
+        #blogEditor {
+            min-height: 400px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        #blogEditor:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.1);
+        }
+
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .category-tag {
+            padding: 10px 25px;
+            background: var(--light);
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .category-tag:hover {
+            background: #e0e0e0;
+        }
+
+        .category-tag.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .keywords-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .blog-detail {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            flex: 1;
+        }
+
+        .blog-detail-title {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        .blog-detail-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            color: var(--gray);
+            font-size: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .blog-detail-category {
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--info) 0%, #74b9ff 100%);
+            color: white;
+        }
+
+        .blog-detail-content {
+            line-height: 1.8;
+            font-size: 18px;
+            color: var(--dark);
+        }
+
+        .blog-detail-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 30px 0;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .blog-detail-content p {
+            margin-bottom: 25px;
+        }
+
+        .blog-detail-content h2, 
+        .blog-detail-content h3 {
+            margin: 40px 0 20px;
+            color: var(--primary);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            transition: var(--transition);
+            border: 2px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 65px;
+            right: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            width: 220px;
+            padding: 15px 0;
+            display: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(108, 92, 231, 0.05);
+            color: var(--primary);
+        }
+
+        .dropdown-menu a i {
+            width: 24px;
+            text-align: center;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 20px 30px;
+            background: var(--success);
+            color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 16px;
+            font-weight: 500;
+            max-width: 400px;
+        }
+
+        .toast i {
+            font-size: 24px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 7px solid rgba(255, 255, 255, 0.3);
+            border-top: 7px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .post-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 70px 0 30px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-column p {
+            color: #bbb;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 16px;
+        }
+
+        .back-to-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .back-to-dashboard:hover {
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .auth-form,
+            .editor-container,
+            .blog-detail {
+                padding: 30px;
+            }
+            
+            .keywords-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-card-img {
+                height: 180px;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo" id="logo">
+                <i class="fas fa-blog"></i>
+                BlogRack
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#" id="homeLink">Home</a></li>
+                    <li><a href="#" id="dashboardLink">Explore</a></li>
+                    <li><a href="#" id="newPostLink">New Post</a></li>
+                    <li id="authLinks">
+                        <a href="#" id="loginLink" class="btn btn-outline">Login</a>
+                        <a href="#" id="registerLink" class="btn btn-primary">Register</a>
+                    </li>
+                    <li id="userMenu" class="user-menu" style="display: none;">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#" id="profileLink"><i class="fas fa-user"></i>Profile</a>
+                            <a href="#" id="myPostsLink"><i class="fas fa-file-alt"></i>My Posts</a>
+                            <a href="#" id="logoutLink"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="mainContent">
+        <section class="hero" id="heroSection">
+            <div class="container">
+                <h1>Best blogging platform for writers and explorers</h1>
+                <p>An open source platform to share your thoughts, ideas, and stories with the world | A professional platform for bloggers to post | An organized platform for explorers to read and refer the content throughout the world</p>
+                <div class="hero-buttons">
+                    <a href="#" id="heroCta" class="btn btn-accent">Start Writing Now</a>
+                    <a href="#" id="exploreBtn" class="btn btn-outline">Explore Blogs</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard container" id="dashboardSection" style="display: none;">
+            <h2 class="section-title">Latest Posts</h2>
+            
+            <div class="privacy-notice" id="privacyNotice" style="display: none;">
+                <i class="fas fa-info-circle"></i> All posts are reviewed to ensure community guidelines are followed.
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by title, author or keyword...">
+                <button id="searchBtn" class="search-btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+                <button id="clearSearchBtn" class="btn btn-outline" style="display: none;">
+                    <i class="fas fa-times"></i> Clear
+                </button>
+            </div>
+            
+            <div class="filter-tabs" id="categoryFilters">
+                <div class="filter-tab active" data-category="all">All</div>
+                <div class="filter-tab" data-category="technology">Technology</div>
+                <div class="filter-tab" data-category="travel">Travel</div>
+                <div class="filter-tab" data-category="lifestyle">Lifestyle</div>
+                <div class="filter-tab" data-category="business">Business</div>
+                <div class="filter-tab" data-category="health">Health</div>
+            </div>
+            
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog posts will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <div class="auth-form" id="loginForm" style="display: none;">
+            <h2>Login to Your Account</h2>
+            <form id="loginFormElement">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="auth-form" id="registerForm" style="display: none;">
+            <h2>Create an Account</h2>
+            <form id="registerFormElement">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password (min 6 characters)</label>
+                    <input type="password" id="registerPassword" class="form-control" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" class="form-control" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="editor-container" id="editorSection" style="display: none;">
+            <a href="#" class="back-to-dashboard" id="backToDashboard">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <h2 id="editorTitle">Create New Post</h2>
+            <form id="blogForm">
+                <input type="hidden" id="postId" value="">
+                <div class="form-group">
+                    <label for="blogTitle">Title</label>
+                    <input type="text" id="blogTitle" class="form-control" placeholder="Enter a compelling title" required>
+                </div>
+                <div class="form-group">
+                    <label for="metaTitle">Meta Title (for SEO)</label>
+                    <input type="text" id="metaTitle" class="form-control" placeholder="Enter meta title for SEO">
+                </div>
+                <div class="form-group">
+                    <label for="blogCategory">Category</label>
+                    <div class="category-tags" id="categoryTags">
+                        <div class="category-tag" data-category="technology">Technology</div>
+                        <div class="category-tag" data-category="travel">Travel</div>
+                        <div class="category-tag" data-category="lifestyle">Lifestyle</div>
+                        <div class="category-tag" data-category="business">Business</div>
+                        <div class="category-tag" data-category="health">Health</div>
+                        <div class="category-tag" data-category="education">Education</div>
+                    </div>
+                    <input type="hidden" id="blogCategory" value="">
+                </div>
+                <div class="form-group">
+                    <label for="blogImage">Featured Image URL (Optional)</label>
+                    <input type="text" id="blogImage" class="form-control" placeholder="Paste image URL here">
+                </div>
+                <div class="form-group">
+                    <label>Keywords (for SEO)</label>
+                    <div class="keywords-container">
+                        <input type="text" id="keyword1" class="form-control" placeholder="Keyword 1">
+                        <input type="text" id="keyword2" class="form-control" placeholder="Keyword 2">
+                        <input type="text" id="keyword3" class="form-control" placeholder="Keyword 3">
+                        <input type="text" id="keyword4" class="form-control" placeholder="Keyword 4">
+                        <input type="text" id="keyword5" class="form-control" placeholder="Keyword 5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="blogEditor"><h3>Content</h3><div> <i><b>Tip:</b> For best structure and formatting, draft your blog along with tables, images and infographics in google sheets and after all reviews paste it here.</i></label>
+                    <div id="blogEditor" contenteditable="true" placeholder="Write your blog content here..."></div>
+                </div>
+                <button type="submit" class="btn btn-accent" id="publishBtn">
+                    <i class="fas fa-paper-plane"></i> Publish Post
+                </button>
+                <div class="post-actions" id="editorActions" style="display: none; margin-top: 20px;">
+                    <button id="unpublishBtn" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Unpublish Post
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="blog-detail" id="blogDetail" style="display: none;">
+            <a href="#" class="back-to-dashboard" id="backFromDetail">
+                <i class="fas fa-arrow-left"></i> Back to Posts
+            </a>
+            <h1 class="blog-detail-title" id="detailTitle">Blog Title</h1>
+            <div class="blog-detail-meta">
+                <span id="detailAuthor">By Author</span>
+                <span id="detailDate">Published on June 1, 2023</span>
+            </div>
+            <div class="blog-detail-category" id="detailCategory">Technology</div>
+            <div class="blog-detail-content" id="detailContent">
+                <p>Blog content goes here...</p>
+            </div>
+            <div class="post-actions" id="postActions" style="display: none; margin-top: 30px;">
+                <button id="editPostBtn" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Edit Post
+                </button>
+                <button id="deletePostBtn" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Unpublish Post
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BlogRack</h3>
+                    <p>Your professional blogging platform to share ideas, stories, and knowledge with the world.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Technology</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Travel</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Lifestyle</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Business</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Health</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get the latest updates</p>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Your email address">
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BlogRack. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for bloggers</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Operation successful!</span>
+    </div>
+
+    <script>
+        // Sheetson API Configuration
+        const SHEETSON_API_KEY = 'iK6OKl5Bh7qGYPpGvkh_6vYpUVcZmqjHODj1ZCFHzQ3aB3BkGOCLVfWJ4h0';
+        const READONLY_API_KEY = 'dUkYYZ3Ay_8n3Rz1AxCO_R4gpsFOKFFcIAX_2IS7a7WNkD5ApctGfW_liUmoQg';
+        const SPREADSHEET_ID = '1s3RWBJSFuwCetUFNSgtVrJVOqopY0thij0Y3SOjnSB4';
+        
+        // Sheet names
+        const USERS_SHEET = 'users';
+        const POSTS_SHEET = 'posts';
+        
+        // API URLs
+        const API_BASE = 'https://api.sheetson.com/v2';
+        const USERS_API = `${API_BASE}/sheets/${USERS_SHEET}`;
+        const POSTS_API = `${API_BASE}/sheets/${POSTS_SHEET}`;
+        
+        // Headers for API requests
+        const API_HEADERS = {
+            'Authorization': `Bearer ${SHEETSON_API_KEY}`,
+            'X-Spreadsheet-Id': SPREADSHEET_ID,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        };
+        
+        const READONLY_HEADERS = {
+            'Authorization': `Bearer ${READONLY_API_KEY}`,
+            'X-Spreadsheet-Id': SPREADSHEET_ID,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        };
+
+        class BlogRackApp {
+            constructor() {
+                this.currentUser = null;
+                this.blogPosts = [];
+                this.currentPostId = null;
+                this.currentFilter = 'all';
+                this.currentSearchTerm = '';
+                this.isMyPostsView = false;
+                this.isEditing = false;
+                
+                this.initElements();
+                this.initEventListeners();
+                this.checkAuthState();
+                this.showHomePage();
+                this.loadInitialData();
+            }
+            
+            initElements() {
+                // Auth elements
+                this.loginLink = document.getElementById('loginLink');
+                this.registerLink = document.getElementById('registerLink');
+                this.loginForm = document.getElementById('loginForm');
+                this.registerForm = document.getElementById('registerForm');
+                this.loginFormElement = document.getElementById('loginFormElement');
+                this.registerFormElement = document.getElementById('registerFormElement');
+                this.showLogin = document.getElementById('showLogin');
+                this.showRegister = document.getElementById('showRegister');
+                this.userMenu = document.getElementById('userMenu');
+                this.userAvatar = document.getElementById('userAvatar');
+                this.dropdownMenu = document.getElementById('dropdownMenu');
+                this.logoutLink = document.getElementById('logoutLink');
+                this.profileLink = document.getElementById('profileLink');
+                this.myPostsLink = document.getElementById('myPostsLink');
+                this.authLinks = document.getElementById('authLinks');
+
+                // Form inputs
+                this.loginEmail = document.getElementById('loginEmail');
+                this.loginPassword = document.getElementById('loginPassword');
+                this.registerName = document.getElementById('registerName');
+                this.registerEmail = document.getElementById('registerEmail');
+                this.registerPassword = document.getElementById('registerPassword');
+                this.registerConfirmPassword = document.getElementById('registerConfirmPassword');
+
+                // Navigation elements
+                this.homeLink = document.getElementById('homeLink');
+                this.dashboardLink = document.getElementById('dashboardLink');
+                this.newPostLink = document.getElementById('newPostLink');
+                this.heroCta = document.getElementById('heroCta');
+                this.exploreBtn = document.getElementById('exploreBtn');
+                this.logo = document.getElementById('logo');
+                this.heroSection = document.getElementById('heroSection');
+                this.backToDashboard = document.getElementById('backToDashboard');
+                this.backFromDetail = document.getElementById('backFromDetail');
+
+                // Content sections
+                this.mainContent = document.getElementById('mainContent');
+                this.dashboardSection = document.getElementById('dashboardSection');
+                this.blogGrid = document.getElementById('blogGrid');
+                this.editorSection = document.getElementById('editorSection');
+                this.blogDetail = document.getElementById('blogDetail');
+
+                // Editor elements
+                this.blogForm = document.getElementById('blogForm');
+                this.postId = document.getElementById('postId');
+                this.editorTitle = document.getElementById('editorTitle');
+                this.blogTitle = document.getElementById('blogTitle');
+                this.metaTitle = document.getElementById('metaTitle');
+                this.blogEditor = document.getElementById('blogEditor');
+                this.blogCategory = document.getElementById('blogCategory');
+                this.blogImage = document.getElementById('blogImage');
+                this.categoryTags = document.getElementById('categoryTags');
+                this.keyword1 = document.getElementById('keyword1');
+                this.keyword2 = document.getElementById('keyword2');
+                this.keyword3 = document.getElementById('keyword3');
+                this.keyword4 = document.getElementById('keyword4');
+                this.keyword5 = document.getElementById('keyword5');
+                this.privacyNotice = document.getElementById('privacyNotice');
+                this.publishBtn = document.getElementById('publishBtn');
+                this.editorActions = document.getElementById('editorActions');
+
+                // Blog detail elements
+                this.detailTitle = document.getElementById('detailTitle');
+                this.detailAuthor = document.getElementById('detailAuthor');
+                this.detailDate = document.getElementById('detailDate');
+                this.detailCategory = document.getElementById('detailCategory');
+                this.detailContent = document.getElementById('detailContent');
+                this.postActions = document.getElementById('postActions');
+                this.editPostBtn = document.getElementById('editPostBtn');
+                this.deletePostBtn = document.getElementById('deletePostBtn');
+                this.unpublishBtn = document.getElementById('unpublishBtn');
+
+                // Search elements
+                this.searchInput = document.getElementById('searchInput');
+                this.searchBtn = document.getElementById('searchBtn');
+                this.clearSearchBtn = document.getElementById('clearSearchBtn');
+
+                // Category filters
+                this.categoryFilters = document.getElementById('categoryFilters');
+
+                // Toast
+                this.toast = document.getElementById('toast');
+                this.toastMessage = document.getElementById('toastMessage');
+
+                // Loading spinner
+                this.loadingSpinner = document.getElementById('loadingSpinner');
+            }
+            
+            initEventListeners() {
+                // Auth events
+                this.loginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showLoginForm();
+                });
+                
+                this.registerLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showRegisterForm();
+                });
+                
+                this.showLogin.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showLoginForm();
+                });
+                
+                this.showRegister.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showRegisterForm();
+                });
+                
+                this.loginFormElement.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
+                
+                this.registerFormElement.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleRegister();
+                });
+                
+                this.logoutLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleLogout();
+                });
+
+                // Navigation events
+                this.homeLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showHomePage();
+                });
+                
+                this.dashboardLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showDashboard();
+                });
+                
+                this.newPostLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showEditor();
+                });
+                
+                this.heroCta.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (this.currentUser) {
+                        this.showEditor();
+                    } else {
+                        this.showLoginForm();
+                    }
+                });
+                
+                this.exploreBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showDashboard();
+                });
+                
+                this.logo.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showHomePage();
+                });
+                
+                this.backToDashboard.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showDashboard();
+                });
+                
+                this.backFromDetail.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showDashboard();
+                });
+
+                // Editor events
+                this.blogForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (this.isEditing) {
+                        this.handleUpdatePost();
+                    } else {
+                        this.handlePublishPost();
+                    }
+                });
+                
+                Array.from(this.categoryTags.children).forEach(tag => {
+                    tag.addEventListener('click', () => {
+                        this.selectCategory(tag);
+                    });
+                });
+                
+                this.unpublishBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleDeletePost();
+                });
+
+                // User menu events
+                this.userAvatar.addEventListener('click', () => {
+                    this.dropdownMenu.classList.toggle('show');
+                });
+                
+                window.addEventListener('click', (e) => {
+                    if (!e.target.matches('.user-avatar')) {
+                        if (this.dropdownMenu.classList.contains('show')) {
+                            this.dropdownMenu.classList.remove('show');
+                        }
+                    }
+                });
+
+                // Category filter events
+                Array.from(this.categoryFilters.children).forEach(filter => {
+                    filter.addEventListener('click', () => {
+                        this.filterPosts(filter);
+                    });
+                });
+
+                // Search events
+                this.searchBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleSearch();
+                });
+
+                this.searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.handleSearch();
+                    }
+                });
+
+                this.clearSearchBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.clearSearch();
+                });
+
+                // My posts link
+                this.myPostsLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showMyPosts();
+                });
+
+                // Edit and delete buttons
+                this.editPostBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showEditorForEdit();
+                });
+                
+                this.deletePostBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleDeletePost();
+                });
+            }
+            
+            async loadInitialData() {
+                try {
+                    this.showLoading();
+                    const postsResponse = await fetch(`${POSTS_API}?limit=100`, {
+                        headers: READONLY_HEADERS
+                    });
+                    
+                    if (!postsResponse.ok) {
+                        throw new Error(`Failed to load posts: ${postsResponse.status}`);
+                    }
+                    
+                    const postsData = await postsResponse.json();
+                    
+                    if (postsData.results) {
+                        this.blogPosts = postsData.results.map(post => ({
+                            id: post.rowIndex,
+                            title: post.title,
+                            metaTitle: post.metaTitle || '',
+                            content: post.content ? this.safeDecodeContent(post.content) : '',
+                            category: post.category,
+                            image: post.image,
+                            authorId: post.authorId,
+                            authorName: post.authorName,
+                            date: post.date ? new Date(post.date).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric' 
+                            }) : 'Unknown date',
+                            keyword1: post.keyword1 || '',
+                            keyword2: post.keyword2 || '',
+                            keyword3: post.keyword3 || '',
+                            keyword4: post.keyword4 || '',
+                            keyword5: post.keyword5 || ''
+                        }));
+                        
+                        this.renderBlogPosts();
+                    }
+              
+                } finally {
+                    this.hideLoading();
+                }
+            }
+            
+            safeDecodeContent(encodedContent) {
+                try {
+                    return decodeURIComponent(atob(encodedContent));
+                } catch (e) {
+                    return encodedContent;
+                }
+            }
+            
+            safeEncodeContent(content) {
+                try {
+                    return btoa(encodeURIComponent(content));
+                } catch (e) {
+                    console.error('Error encoding content:', e);
+                    return content;
+                }
+            }
+            
+            async handleRegister() {
+                const name = this.registerName.value;
+                const email = this.registerEmail.value;
+                const password = this.registerPassword.value;
+                const confirmPassword = this.registerConfirmPassword.value;
+                
+                if (!name || !email || !password || !confirmPassword) {
+                    this.showToast('Please fill in all fields', 'error');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    this.showToast('Passwords do not match', 'error');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    this.showToast('Password must be at least 6 characters', 'error');
+                    return;
+                }
+                
+                try {
+                    this.showLoading();
+                    const checkResponse = await fetch(`${USERS_API}?where=${encodeURIComponent(JSON.stringify({email}))}`, {
+                        headers: READONLY_HEADERS
+                    });
+                    
+                    if (!checkResponse.ok) {
+                        throw new Error('Failed to check user existence');
+                    }
+                    
+                    const checkData = await checkResponse.json();
+                    
+                    if (checkData.results && checkData.results.length > 0) {
+                        this.showToast('Email already registered', 'error');
+                        return;
+                    }
+                    
+                    const newUser = {
+                        name,
+                        email,
+                        password,
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    const registerResponse = await fetch(USERS_API, {
+                        method: 'POST',
+                        headers: API_HEADERS,
+                        body: JSON.stringify(newUser)
+                    });
+                    
+                    if (!registerResponse.ok) {
+                        throw new Error('Registration failed');
+                    }
+                    
+                    const userData = await registerResponse.json();
+                    
+                    this.currentUser = {
+                        id: userData.rowIndex,
+                        name: userData.name,
+                        email: userData.email
+                    };
+                    
+                    localStorage.setItem('blograck-current-user', JSON.stringify(this.currentUser));
+                    this.updateAuthUI();
+                    
+                    this.registerName.value = '';
+                    this.registerEmail.value = '';
+                    this.registerPassword.value = '';
+                    this.registerConfirmPassword.value = '';
+                    
+                    this.showDashboard();
+                    this.showToast('Registration successful! Welcome to BlogRack', 'success');
+                    
+                                } finally {
+                    this.hideLoading();
+                }
+            }
+            
+            async handleLogin() {
+                const email = this.loginEmail.value;
+                const password = this.loginPassword.value;
+                
+                if (!email || !password) {
+                    this.showToast('Please fill in all fields', 'error');
+                    return;
+                }
+                
+                try {
+                    this.showLoading();
+                    const response = await fetch(`${USERS_API}?where=${encodeURIComponent(JSON.stringify({email, password}))}`, {
+                        headers: READONLY_HEADERS
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Login failed');
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.results && data.results.length > 0) {
+                        const user = data.results[0];
+                        this.currentUser = {
+                            id: user.rowIndex,
+                            name: user.name,
+                            email: user.email
+                        };
+                        
+                        localStorage.setItem('blograck-current-user', JSON.stringify(this.currentUser));
+                        this.updateAuthUI();
+                        
+                        this.loginEmail.value = '';
+                        this.loginPassword.value = '';
+                        
+                        this.showDashboard();
+                        this.showToast(`Welcome back, ${user.name}!`, 'success');
+                        
+                        await this.loadInitialData();
+                    } else {
+                        this.showToast('Invalid email or password', 'error');
+                    }
+
+                } finally {
+                    this.hideLoading();
+                }
+            }
+            
+            async handlePublishPost() {
+                if (!this.currentUser) {
+                    this.showToast('Please login to publish a post', 'error');
+                    return;
+                }
+                
+                const title = this.blogTitle.value;
+                const metaTitle = this.metaTitle.value;
+                const content = this.safeEncodeContent(this.blogEditor.innerHTML);
+                const category = this.blogCategory.value;
+                const image = this.blogImage.value;
+                
+                if (!title || !content || !category) {
+                    this.showToast('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                try {
+                    this.showLoading();
+                    const newPost = {
+                        title,
+                        metaTitle: metaTitle || title,
+                        content,
+                        category,
+                        image: image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                        authorId: this.currentUser.email,
+                        authorName: this.currentUser.name,
+                        date: new Date().toISOString(),
+                        keyword1: this.keyword1.value || '',
+                        keyword2: this.keyword2.value || '',
+                        keyword3: this.keyword3.value || '',
+                        keyword4: this.keyword4.value || '',
+                        keyword5: this.keyword5.value || ''
+                    };
+                    
+                    const response = await fetch(POSTS_API, {
+                        method: 'POST',
+                        headers: API_HEADERS,
+                        body: JSON.stringify(newPost)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to publish post');
+                    }
+                    
+                    const postData = await response.json();
+                    
+                    this.blogPosts.unshift({
+                        id: postData.rowIndex,
+                        ...newPost,
+                        content: this.safeDecodeContent(newPost.content),
+                        date: new Date(newPost.date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        })
+                    });
+                    
+                    this.resetEditorForm();
+                    this.showDashboard();
+                    this.showToast('Post published successfully!', 'success');
+                    this.renderBlogPosts();
+                    
+                } catch (error) {
+                    console.error('Publish error:', error);
+                    this.showToast('Failed to publish post. Please try again.', 'error');
+                } finally {
+                    this.hideLoading();
+                }
+            }
+            
+            async handleUpdatePost() {
+                if (!this.currentUser || !this.postId.value) {
+                    this.showToast('Please login to edit a post', 'error');
+                    return;
+                }
+                
+                const title = this.blogTitle.value;
+                const metaTitle = this.metaTitle.value;
+                const content = this.safeEncodeContent(this.blogEditor.innerHTML);
+                const category = this.blogCategory.value;
+                const image = this.blogImage.value;
+                
+                if (!title || !content || !category) {
+                    this.showToast('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                try {
+                    this.showLoading();
+                    const updatedPost = {
+                        title,
+                        metaTitle: metaTitle || title,
+                        content,
+                        category,
+                        image: image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                        keyword1: this.keyword1.value || '',
+                        keyword2: this.keyword2.value || '',
+                        keyword3: this.keyword3.value || '',
+                        keyword4: this.keyword4.value || '',
+                        keyword5: this.keyword5.value || ''
+                    };
+                    
+                    const response = await fetch(`${POSTS_API}/${this.postId.value}`, {
+                        method: 'PATCH',
+                        headers: API_HEADERS,
+                        body: JSON.stringify(updatedPost)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to update post');
+                    }
+                    
+                    // Update local posts array
+                    const postIndex = this.blogPosts.findIndex(p => p.id === this.postId.value);
+                    if (postIndex !== -1) {
+                        this.blogPosts[postIndex] = {
+                            ...this.blogPosts[postIndex],
+                            ...updatedPost,
+                            content: this.safeDecodeContent(updatedPost.content)
+                        };
+                    }
+                    
+                    this.resetEditorForm();
+                    this.showDashboard();
+                    this.showToast('Post updated successfully!', 'success');
+                    this.renderBlogPosts();
+                    
+                } catch (error) {
+                    console.error('Update error:', error);
+                    this.showToast('Failed to update post. Please try again.', 'error');
+                } finally {
+                    this.hideLoading();
+                }
+            }
+            
+            async handleDeletePost() {
+                if (!this.currentPostId) return;
+                
+                if (!confirm('Are you sure you want to unpublish this post? This action cannot be undone.')) {
+                    return;
+                }
+                
+                try {
+                    this.showLoading();
+                    const response = await fetch(`${POSTS_API}/${this.currentPostId}`, {
+                        method: 'DELETE',
+                        headers: API_HEADERS
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to delete post');
+                    }
+                    
+                    // Remove from local posts array
+                    this.blogPosts = this.blogPosts.filter(post => post.id !== this.currentPostId);
+                    
+                    this.showDashboard();
+                    this.showToast('Post unpublished successfully', 'success');
+                    
+                    // Re-render posts
+                    if (this.isMyPostsView) {
+                        this.showMyPosts();
+                    } else {
+                        this.renderBlogPosts();
+                    }
+                    
+                } catch (error) {
+                    console.error('Delete error:', error);
+                    this.showToast('Failed to unpublish post. Please try again.', 'error');
+                } finally {
+                    this.hideLoading();
+                }
+            }
+            
+            resetEditorForm() {
+                this.blogTitle.value = '';
+                this.metaTitle.value = '';
+                this.blogEditor.innerHTML = '';
+                this.blogImage.value = '';
+                this.keyword1.value = '';
+                this.keyword2.value = '';
+                this.keyword3.value = '';
+                this.keyword4.value = '';
+                this.keyword5.value = '';
+                Array.from(this.categoryTags.children).forEach(tag => {
+                    tag.classList.remove('active');
+                });
+                this.postId.value = '';
+                this.isEditing = false;
+                this.editorTitle.textContent = 'Create New Post';
+                this.publishBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Post';
+                this.editorActions.style.display = 'none';
+            }
+            
+            checkAuthState() {
+                const user = JSON.parse(localStorage.getItem('blograck-current-user'));
+                if (user) {
+                    this.currentUser = user;
+                    this.updateAuthUI();
+                }
+            }
+            
+            updateAuthUI() {
+                if (this.currentUser) {
+                    this.authLinks.style.display = 'none';
+                    this.userMenu.style.display = 'block';
+                    this.userAvatar.textContent = this.currentUser.name.charAt(0).toUpperCase();
+                    this.privacyNotice.style.display = 'block';
+                } else {
+                    this.authLinks.style.display = 'block';
+                    this.userMenu.style.display = 'none';
+                    this.privacyNotice.style.display = 'none';
+                }
+            }
+            
+            showHomePage() {
+                this.hideAllSections();
+                this.heroSection.style.display = 'block';
+                this.dashboardSection.style.display = 'block';
+                this.isMyPostsView = false;
+                this.renderBlogPosts();
+            }
+            
+            showDashboard() {
+                this.hideAllSections();
+                this.dashboardSection.style.display = 'block';
+                this.isMyPostsView = false;
+                this.renderBlogPosts();
+            }
+            
+            showLoginForm() {
+                this.hideAllSections();
+                this.loginForm.style.display = 'block';
+            }
+            
+            showRegisterForm() {
+                this.hideAllSections();
+                this.registerForm.style.display = 'block';
+            }
+            
+            showEditor() {
+                if (!this.currentUser) {
+                    this.showLoginForm();
+                    this.showToast('Please login to create a post', 'error');
+                    return;
+                }
+                this.hideAllSections();
+                this.editorSection.style.display = 'block';
+                this.resetEditorForm();
+            }
+            
+            showEditorForEdit() {
+                const post = this.blogPosts.find(p => p.id === this.currentPostId);
+                if (!post) return;
+                
+                this.hideAllSections();
+                this.editorSection.style.display = 'block';
+                this.isEditing = true;
+                this.editorTitle.textContent = 'Edit Post';
+                this.publishBtn.innerHTML = '<i class="fas fa-save"></i> Update Post';
+                this.editorActions.style.display = 'flex';
+                
+                this.postId.value = this.currentPostId;
+                this.blogTitle.value = post.title;
+                this.metaTitle.value = post.metaTitle;
+                
+                // Set category
+                Array.from(this.categoryTags.children).forEach(tag => {
+                    tag.classList.remove('active');
+                    if (tag.dataset.category === post.category.toLowerCase()) {
+                        tag.classList.add('active');
+                    }
+                });
+                this.blogCategory.value = post.category;
+                
+                this.blogImage.value = post.image;
+                this.keyword1.value = post.keyword1;
+                this.keyword2.value = post.keyword2;
+                this.keyword3.value = post.keyword3;
+                this.keyword4.value = post.keyword4;
+                this.keyword5.value = post.keyword5;
+                
+                this.blogEditor.innerHTML = post.content;
+            }
+            
+            showBlogDetail(postId) {
+                this.hideAllSections();
+                const post = this.blogPosts.find(p => p.id === postId);
+                if (post) {
+                    this.currentPostId = postId;
+                    this.detailTitle.textContent = post.title;
+                    this.detailAuthor.textContent = `By ${post.authorName}`;
+                    this.detailDate.textContent = `Published on ${post.date}`;
+                    this.detailCategory.textContent = post.category;
+                    this.detailCategory.className = 'blog-detail-category';
+                    this.detailCategory.classList.add(this.getCategoryClass(post.category));
+                    this.detailContent.innerHTML = post.content;
+                    
+                    if (post.image) {
+                        this.detailContent.insertAdjacentHTML('afterbegin', `<img src="${post.image}" alt="${post.title}">`);
+                    }
+                    
+                    // Show action buttons only if current user is the author
+                    if (this.currentUser && this.currentUser.email === post.authorId) {
+                        this.postActions.style.display = 'flex';
+                    } else {
+                        this.postActions.style.display = 'none';
+                    }
+                    
+                    this.blogDetail.style.display = 'block';
+                }
+            }
+            
+            showMyPosts() {
+                if (!this.currentUser) {
+                    this.showLoginForm();
+                    this.showToast('Please login to view your posts', 'error');
+                    return;
+                }
+                
+                this.hideAllSections();
+                this.dashboardSection.style.display = 'block';
+                this.isMyPostsView = true;
+                
+                const myPosts = this.blogPosts.filter(post => post.authorId === this.currentUser.email);
+                this.renderBlogPosts(null, myPosts);
+            }
+            
+            hideAllSections() {
+                this.heroSection.style.display = 'none';
+                this.dashboardSection.style.display = 'none';
+                this.loginForm.style.display = 'none';
+                this.registerForm.style.display = 'none';
+                this.editorSection.style.display = 'none';
+                this.blogDetail.style.display = 'none';
+            }
+            
+            handleLogout() {
+                this.currentUser = null;
+                localStorage.removeItem('blograck-current-user');
+                this.updateAuthUI();
+                this.showHomePage();
+                this.showToast('Logged out successfully', 'success');
+            }
+            
+            selectCategory(tag) {
+                Array.from(this.categoryTags.children).forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                this.blogCategory.value = tag.dataset.category;
+            }
+            
+            filterPosts(filter) {
+                Array.from(this.categoryFilters.children).forEach(f => f.classList.remove('active'));
+                filter.classList.add('active');
+                
+                const category = filter.dataset.category;
+                this.currentFilter = category;
+                this.renderBlogPosts(category === 'all' ? null : category);
+            }
+            
+            handleSearch() {
+                const searchTerm = this.searchInput.value.trim();
+                if (!searchTerm) return;
+                
+                this.currentSearchTerm = searchTerm.toLowerCase();
+                this.clearSearchBtn.style.display = 'inline-block';
+                
+                const filteredPosts = this.blogPosts.filter(post => 
+                    post.title.toLowerCase().includes(this.currentSearchTerm) ||
+                    post.content.toLowerCase().includes(this.currentSearchTerm) ||
+                    post.authorName.toLowerCase().includes(this.currentSearchTerm) ||
+                    post.keyword1.toLowerCase().includes(this.currentSearchTerm) ||
+                    post.keyword2.toLowerCase().includes(this.currentSearchTerm) ||
+                    post.keyword3.toLowerCase().includes(this.currentSearchTerm) ||
+                    post.keyword4.toLowerCase().includes(this.currentSearchTerm) ||
+                    post.keyword5.toLowerCase().includes(this.currentSearchTerm)
+                );
+                
+                this.renderBlogPosts(null, filteredPosts);
+            }
+            
+            clearSearch() {
+                this.searchInput.value = '';
+                this.currentSearchTerm = '';
+                this.clearSearchBtn.style.display = 'none';
+                this.renderBlogPosts();
+            }
+            
+            renderBlogPosts(category = null, postsToRender = null) {
+                this.blogGrid.innerHTML = '';
+                
+                let filteredPosts = postsToRender || this.blogPosts;
+                
+                if (category && category !== 'all') {
+                    filteredPosts = filteredPosts.filter(post => post.category === category);
+                }
+                
+                if (this.currentSearchTerm) {
+                    filteredPosts = filteredPosts.filter(post => 
+                        post.title.toLowerCase().includes(this.currentSearchTerm) ||
+                        post.content.toLowerCase().includes(this.currentSearchTerm) ||
+                        post.authorName.toLowerCase().includes(this.currentSearchTerm) ||
+                        post.keyword1.toLowerCase().includes(this.currentSearchTerm) ||
+                        post.keyword2.toLowerCase().includes(this.currentSearchTerm) ||
+                        post.keyword3.toLowerCase().includes(this.currentSearchTerm) ||
+                        post.keyword4.toLowerCase().includes(this.currentSearchTerm) ||
+                        post.keyword5.toLowerCase().includes(this.currentSearchTerm)
+                    );
+                }
+                
+                if (filteredPosts.length === 0) {
+                    this.blogGrid.innerHTML = `
+                        <div class="no-posts" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                            <h3>No posts found</h3>
+                            <p>Be the first to write one!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                filteredPosts.forEach(post => {
+                    const excerpt = this.getExcerpt(post.content);
+                    const categoryClass = this.getCategoryClass(post.category);
+                    const authorInitial = post.authorName ? post.authorName.charAt(0).toUpperCase() : 'U';
+                    
+                    const postElement = document.createElement('div');
+                    postElement.className = 'blog-card';
+                    postElement.innerHTML = `
+                        ${post.image ? `
+                        <div class="blog-card-img">
+                            <img src="${post.image}" alt="${post.title}">
+                        </div>
+                        ` : `
+                        <div class="blog-card-img" style="background: linear-gradient(135deg, ${this.getCategoryColor(post.category)});">
+                            <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-size: 3rem; opacity: 0.7;">
+                                <i class="fas fa-feather-alt"></i>
+                            </div>
+                        </div>
+                        `}
+                        <div class="blog-card-content">
+                            <span class="blog-card-category ${categoryClass}">${post.category}</span>
+                            <h3 class="blog-card-title">${post.title}</h3>
+                            <p class="blog-card-excerpt">${excerpt}</p>
+                            <div class="blog-card-meta">
+                                <div class="author-info">
+                                    <div class="author-avatar">${authorInitial}</div>
+                                    <span>${post.authorName}</span>
+                                </div>
+                                <span>${post.date}</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    postElement.addEventListener('click', () => {
+                        this.showBlogDetail(post.id);
+                    });
+                    
+                    this.blogGrid.appendChild(postElement);
+                });
+            }
+            
+            getExcerpt(content, length = 120) {
+                try {
+                    if (!content) return 'No content available...';
+                    
+                    const div = document.createElement('div');
+                    div.innerHTML = content;
+                    
+                    const text = div.textContent || div.innerText || '';
+                    
+                    return text.length > length 
+                        ? text.substring(0, length) + '...' 
+                        : text;
+                } catch (e) {
+                    console.error('Error generating excerpt:', e);
+                    return 'Click to read more...';
+                }
+            }
+            
+            getCategoryClass(category) {
+                const classes = {
+                    'technology': 'gradient-bg',
+                    'travel': 'gradient-success-bg',
+                    'lifestyle': 'gradient-danger-bg',
+                    'business': 'gradient-warning-bg',
+                    'health': 'gradient-accent-bg',
+                    'education': 'gradient-bg'
+                };
+                return classes[category.toLowerCase()] || 'gradient-bg';
+            }
+            
+            getCategoryColor(category) {
+                const colors = {
+                    'technology': '#6c5ce7, #a29bfe',
+                    'travel': '#00b894, #55efc4',
+                    'lifestyle': '#d63031, #ff7675',
+                    'business': '#fdcb6e, #ffeaa7',
+                    'health': '#fd79a8, #ff7675',
+                    'education': '#0984e3, #74b9ff'
+                };
+                return colors[category.toLowerCase()] || '#6c5ce7, #a29bfe';
+            }
+            
+            showToast(message, type = 'success') {
+                this.toastMessage.textContent = message;
+                this.toast.className = 'toast';
+                this.toast.classList.add(type);
+                
+                const icon = this.toast.querySelector('i');
+                if (type === 'success') {
+                    icon.className = 'fas fa-check-circle';
+                } else {
+                    icon.className = 'fas fa-exclamation-circle';
+                }
+                
+                this.toast.classList.add('show');
+                
+                setTimeout(() => {
+                    this.toast.classList.remove('show');
+                }, 3000);
+            }
+            
+            showLoading() {
+                this.loadingSpinner.style.display = 'flex';
+            }
+            
+            hideLoading() {
+                this.loadingSpinner.style.display = 'none';
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new BlogRackApp();
+            
+                   });
+    </script>
+</body>
+</html>
