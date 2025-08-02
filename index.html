@@ -66,6 +66,11 @@
             color: white;
         }
 
+        .gradient-info-bg {
+            background: linear-gradient(135deg, var(--info) 0%, #74b9ff 100%);
+            color: white;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -259,6 +264,40 @@
             margin: 0 auto 40px;
         }
 
+        .realtime-indicator {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 10px 15px;
+            background: var(--success);
+            color: white;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .realtime-indicator.offline {
+            background: var(--danger);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
         .search-container {
             display: flex;
             margin-bottom: 30px;
@@ -307,7 +346,7 @@
             gap: 15px;
             margin-bottom: 40px;
             flex-wrap: wrap;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto 40px;
         }
 
@@ -498,7 +537,7 @@
         }
 
         .editor-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 50px auto;
             background: white;
             padding: 50px;
@@ -514,20 +553,166 @@
             font-size: 32px;
         }
 
+        /* Rich Text Editor Toolbar Styles */
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid var(--light-gray);
+            border-bottom: none;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 0;
+        }
+
+        .toolbar-group {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .toolbar-group::after {
+            content: '';
+            width: 1px;
+            height: 24px;
+            background: var(--light-gray);
+            margin: 0 8px;
+        }
+
+        .toolbar-group:last-child::after {
+            display: none;
+        }
+
+        .toolbar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--light-gray);
+            color: var(--primary);
+        }
+
+        .toolbar-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .toolbar-select {
+            padding: 6px 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            background: white;
+            font-size: 14px;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .toolbar-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .color-picker {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .color-picker input[type="color"] {
+            width: 100%;
+            height: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
         #blogEditor {
             min-height: 400px;
             border: 2px solid var(--light-gray);
-            border-radius: 12px;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
             padding: 25px;
-            margin-bottom: 30px;
             font-size: 16px;
             transition: var(--transition);
+            line-height: 1.6;
         }
 
         #blogEditor:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 5px 15px rgba(108, 92, 231, 0.1);
+        }
+
+        /* Rich text content styles */
+        #blogEditor h1, #blogEditor h2, #blogEditor h3, #blogEditor h4, #blogEditor h5, #blogEditor h6 {
+            margin: 20px 0 10px 0;
+            color: var(--primary);
+        }
+
+        #blogEditor p {
+            margin: 10px 0;
+        }
+
+        #blogEditor ul, #blogEditor ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        #blogEditor li {
+            margin: 5px 0;
+        }
+
+        #blogEditor blockquote {
+            margin: 15px 0;
+            padding: 15px 20px;
+            border-left: 4px solid var(--primary);
+            background: #f8f9fa;
+            font-style: italic;
+        }
+
+        #blogEditor table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        #blogEditor table th,
+        #blogEditor table td {
+            border: 1px solid var(--light-gray);
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        #blogEditor table th {
+            background: var(--light);
+            font-weight: 600;
+        }
+
+        #blogEditor a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        #blogEditor img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border-radius: 8px;
         }
 
         .category-tags {
@@ -556,6 +741,37 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border-color: var(--primary);
+        }
+
+        .custom-category {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        .custom-category input {
+            flex: 1;
+            padding: 8px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .custom-category input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .custom-category button {
+            padding: 8px 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .keywords-container {
@@ -620,10 +836,46 @@
             margin-bottom: 25px;
         }
 
-        .blog-detail-content h2, 
-        .blog-detail-content h3 {
+        .blog-detail-content h1, .blog-detail-content h2, 
+        .blog-detail-content h3, .blog-detail-content h4,
+        .blog-detail-content h5, .blog-detail-content h6 {
             margin: 40px 0 20px;
             color: var(--primary);
+        }
+
+        .blog-detail-content ul, .blog-detail-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .blog-detail-content li {
+            margin: 8px 0;
+        }
+
+        .blog-detail-content blockquote {
+            margin: 25px 0;
+            padding: 20px 25px;
+            border-left: 4px solid var(--primary);
+            background: #f8f9fa;
+            font-style: italic;
+        }
+
+        .blog-detail-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        .blog-detail-content table th,
+        .blog-detail-content table td {
+            border: 1px solid var(--light-gray);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .blog-detail-content table th {
+            background: var(--light);
+            font-weight: 600;
         }
 
         .user-menu {
@@ -879,6 +1131,15 @@
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 30px;
             }
+            
+            .editor-toolbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toolbar-group::after {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -922,6 +1183,23 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+            
+            .editor-toolbar {
+                padding: 10px;
+                gap: 5px;
+            }
+            
+            .toolbar-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .realtime-indicator {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -946,6 +1224,12 @@
 <body>
     <div class="loading-spinner" id="loadingSpinner">
         <div class="spinner"></div>
+    </div>
+
+    <!-- Real-time indicator -->
+    <div class="realtime-indicator" id="realtimeIndicator">
+        <div class="pulse-dot"></div>
+        <span id="realtimeStatus">Live Data</span>
     </div>
 
     <header>
@@ -979,7 +1263,7 @@
     <main id="mainContent">
         <section class="hero" id="heroSection">
             <div class="container">
-                <h1>Uhoh...! we are almost there, final website developments are in progress</h1>
+                <h1>Professional Blogging Platform</h1>
                 <p>An open source platform to share your thoughts, ideas, and stories with the world | A professional platform for bloggers to post | An organized platform for explorers to read and refer the content throughout the world</p>
                 <div class="hero-buttons">
                     <a href="#" id="heroCta" class="btn btn-accent">Start Writing Now</a>
@@ -1012,6 +1296,8 @@
                 <div class="filter-tab" data-category="lifestyle">Lifestyle</div>
                 <div class="filter-tab" data-category="business">Business</div>
                 <div class="filter-tab" data-category="health">Health</div>
+                <div class="filter-tab" data-category="education">Education</div>
+                <div class="filter-tab" data-category="others">Others</div>
             </div>
             
             <div class="blog-grid" id="blogGrid">
@@ -1074,6 +1360,7 @@
             <h2 id="editorTitle">Create New Post</h2>
             <form id="blogForm">
                 <input type="hidden" id="postId" value="">
+                <input type="hidden" id="postRowIndex" value="">
                 <div class="form-group">
                     <label for="blogTitle">Title</label>
                     <input type="text" id="blogTitle" class="form-control" placeholder="Enter a compelling title" required>
@@ -1091,6 +1378,11 @@
                         <div class="category-tag" data-category="business">Business</div>
                         <div class="category-tag" data-category="health">Health</div>
                         <div class="category-tag" data-category="education">Education</div>
+                        <div class="category-tag" data-category="others">Others</div>
+                    </div>
+                    <div class="custom-category" id="customCategoryDiv" style="display: none;">
+                        <input type="text" id="customCategoryInput" placeholder="Please specify category..." maxlength="50">
+                        <button type="button" id="customCategoryBtn">Set</button>
                     </div>
                     <input type="hidden" id="blogCategory" value="">
                 </div>
@@ -1109,14 +1401,120 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="blogEditor"><h3>Content</h3><div> <i><b>Tip:</b> For best structure and formatting, draft your blog along with tables, images and infographics in google sheets and after all reviews paste it here.</i></label>
+                    <label><h3>Content</h3></label>
+                    
+                    <!-- Rich Text Editor Toolbar -->
+                    <div class="editor-toolbar">
+                        <!-- Text Formatting Group -->
+                        <div class="toolbar-group">
+                            <button type="button" class="toolbar-btn" data-command="bold" title="Bold">
+                                <i class="fas fa-bold"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="italic" title="Italic">
+                                <i class="fas fa-italic"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="underline" title="Underline">
+                                <i class="fas fa-underline"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="strikeThrough" title="Strikethrough">
+                                <i class="fas fa-strikethrough"></i>
+                            </button>
+                        </div>
+
+                        <!-- Heading Group -->
+                        <div class="toolbar-group">
+                            <select class="toolbar-select" id="headingSelect">
+                                <option value="">Normal</option>
+                                <option value="h1">Heading 1</option>
+                                <option value="h2">Heading 2</option>
+                                <option value="h3">Heading 3</option>
+                                <option value="h4">Heading 4</option>
+                                <option value="h5">Heading 5</option>
+                                <option value="h6">Heading 6</option>
+                            </select>
+                        </div>
+
+                        <!-- List Group -->
+                        <div class="toolbar-group">
+                            <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
+                                <i class="fas fa-list-ul"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="Numbered List">
+                                <i class="fas fa-list-ol"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="outdent" title="Decrease Indent">
+                                <i class="fas fa-outdent"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="indent" title="Increase Indent">
+                                <i class="fas fa-indent"></i>
+                            </button>
+                        </div>
+
+                        <!-- Alignment Group -->
+                        <div class="toolbar-group">
+                            <button type="button" class="toolbar-btn" data-command="justifyLeft" title="Align Left">
+                                <i class="fas fa-align-left"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="justifyCenter" title="Align Center">
+                                <i class="fas fa-align-center"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="justifyRight" title="Align Right">
+                                <i class="fas fa-align-right"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="justifyFull" title="Justify">
+                                <i class="fas fa-align-justify"></i>
+                            </button>
+                        </div>
+
+                        <!-- Insert Group -->
+                        <div class="toolbar-group">
+                            <button type="button" class="toolbar-btn" id="insertLink" title="Insert Link">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" id="insertImage" title="Insert Image">
+                                <i class="fas fa-image"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" id="insertTable" title="Insert Table">
+                                <i class="fas fa-table"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="formatBlock" data-value="blockquote" title="Quote">
+                                <i class="fas fa-quote-left"></i>
+                            </button>
+                        </div>
+
+                        <!-- Color Group -->
+                        <div class="toolbar-group">
+                            <div class="color-picker" title="Text Color">
+                                <input type="color" id="textColor" value="#000000">
+                            </div>
+                            <div class="color-picker" title="Background Color">
+                                <input type="color" id="backColor" value="#ffffff">
+                            </div>
+                        </div>
+
+                        <!-- Actions Group -->
+                        <div class="toolbar-group">
+                            <button type="button" class="toolbar-btn" data-command="undo" title="Undo">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="redo" title="Redo">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" id="clearFormat" title="Clear Formatting">
+                                <i class="fas fa-remove-format"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Rich Text Editor Content Area -->
                     <div id="blogEditor" contenteditable="true" placeholder="Write your blog content here..."></div>
                 </div>
+                
                 <button type="submit" class="btn btn-accent" id="publishBtn">
                     <i class="fas fa-paper-plane"></i> Publish Post
                 </button>
                 <div class="post-actions" id="editorActions" style="display: none; margin-top: 20px;">
-                    <button id="unpublishBtn" class="btn btn-danger">
+                    <button type="button" id="unpublishBtn" class="btn btn-danger">
                         <i class="fas fa-trash"></i> Unpublish Post
                     </button>
                 </div>
@@ -1177,15 +1575,21 @@
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Lifestyle</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Business</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Health</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Education</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Others</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Newsletter</h3>
                     <p>Subscribe to get the latest updates</p>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your email address">
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Subscribe</button>
-                    </div>
+                    <form id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" id="newsletterEmail" class="form-control" placeholder="Your email address" required>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;">
+                                <i class="fas fa-envelope"></i> Subscribe
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1208,11 +1612,13 @@
         // Sheet names
         const USERS_SHEET = 'users';
         const POSTS_SHEET = 'posts';
+        const NEWSLETTER_SHEET = 'newsletter';
         
         // API URLs
         const API_BASE = 'https://api.sheetson.com/v2';
         const USERS_API = `${API_BASE}/sheets/${USERS_SHEET}`;
         const POSTS_API = `${API_BASE}/sheets/${POSTS_SHEET}`;
+        const NEWSLETTER_API = `${API_BASE}/sheets/${NEWSLETTER_SHEET}`;
         
         // Headers for API requests
         const API_HEADERS = {
@@ -1238,12 +1644,197 @@
                 this.currentSearchTerm = '';
                 this.isMyPostsView = false;
                 this.isEditing = false;
+                this.refreshInterval = null;
+                this.isOnline = true;
                 
                 this.initElements();
                 this.initEventListeners();
+                this.initRichTextEditor();
                 this.checkAuthState();
                 this.showHomePage();
-                this.loadInitialData();
+                this.startRealtimeSync();
+            }
+            
+            // Start real-time data synchronization
+            startRealtimeSync() {
+                console.log('🔄 Starting real-time sync...');
+                
+                // Initial load
+                this.loadDataFromAPI();
+                
+                // Set up automatic refresh every 10 seconds
+                this.refreshInterval = setInterval(() => {
+                    this.loadDataFromAPI(false); // Silent refresh
+                }, 10000);
+                
+                // Update real-time indicator
+                this.updateRealtimeIndicator(true);
+            }
+            
+            stopRealtimeSync() {
+                if (this.refreshInterval) {
+                    clearInterval(this.refreshInterval);
+                    this.refreshInterval = null;
+                }
+                this.updateRealtimeIndicator(false);
+            }
+            
+            updateRealtimeIndicator(isOnline) {
+                this.isOnline = isOnline;
+                const indicator = document.getElementById('realtimeIndicator');
+                const status = document.getElementById('realtimeStatus');
+                
+                if (isOnline) {
+                    indicator.classList.remove('offline');
+                    status.textContent = 'Live Data';
+                } else {
+                    indicator.classList.add('offline');
+                    status.textContent = 'Offline';
+                }
+            }
+            
+            async loadDataFromAPI(showLoading = true) {
+                console.log('📡 Fetching latest data from API...');
+                
+                try {
+                    if (showLoading) {
+                        this.showLoading();
+                    }
+                    
+                    // Fetch fresh data from API - NO CACHING
+                    const timestamp = Date.now();
+                    const postsResponse = await fetch(`${POSTS_API}?limit=100&_t=${timestamp}`, {
+                        headers: READONLY_HEADERS,
+                        cache: 'no-cache' // Disable caching
+                    });
+                    
+                    if (!postsResponse.ok) {
+                        throw new Error(`API Error: ${postsResponse.status} - ${postsResponse.statusText}`);
+                    }
+                    
+                    const postsData = await postsResponse.json();
+                    console.log('📊 Fresh data received:', postsData);
+                    
+                    if (postsData && postsData.results && Array.isArray(postsData.results)) {
+                        console.log(`✅ Processing ${postsData.results.length} posts from sheet`);
+                        
+                        // Clear existing posts and load fresh data
+                        this.blogPosts = [];
+                        
+                        this.blogPosts = postsData.results.map((post, index) => {
+                            const postId = post.rowIndex || post.id || `post_${Date.now()}_${index}`;
+                            
+                            return {
+                                id: postId,
+                                rowIndex: post.rowIndex,
+                                title: post.title || 'Untitled Post',
+                                metaTitle: post.metaTitle || post.title || 'Untitled Post',
+                                content: post.content || '<p>No content available</p>',
+                                category: post.category || 'General',
+                                image: post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
+                                authorId: post.authorId || 'unknown',
+                                authorName: post.authorName || 'Anonymous',
+                                date: post.date ? new Date(post.date).toLocaleDateString('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: 'numeric' 
+                                }) : new Date().toLocaleDateString('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: 'numeric' 
+                                }),
+                                keyword1: post.keyword1 || '',
+                                keyword2: post.keyword2 || '',
+                                keyword3: post.keyword3 || '',
+                                keyword4: post.keyword4 || '',
+                                keyword5: post.keyword5 || ''
+                            };
+                        });
+                        
+                        console.log('✅ Fresh blog posts loaded:', this.blogPosts.length);
+                        this.renderBlogPosts();
+                        this.updateRealtimeIndicator(true);
+                    } else {
+                        console.log('⚠️ No posts found in API response');
+                        this.blogPosts = [];
+                        this.renderBlogPosts();
+                    }
+                    
+                } catch (error) {
+                    console.error('❌ Error loading data from API:', error);
+                    this.updateRealtimeIndicator(false);
+                    
+                    if (showLoading) {
+                        this.showToast(`Failed to load latest data: ${error.message}`, 'error');
+                    }
+                } finally {
+                    if (showLoading) {
+                        this.hideLoading();
+                    }
+                }
+            }
+            
+            async handleNewsletterSubscription() {
+                const email = document.getElementById('newsletterEmail').value.trim();
+                
+                if (!email) {
+                    this.showToast('Please enter your email address', 'error');
+                    return;
+                }
+                
+                if (!this.isValidEmail(email)) {
+                    this.showToast('Please enter a valid email address', 'error');
+                    return;
+                }
+                
+                try {
+                    this.showLoading();
+                    
+                    // Check if email already exists
+                    const checkResponse = await fetch(`${NEWSLETTER_API}?where=${encodeURIComponent(JSON.stringify({emailID: email}))}`, {
+                        headers: READONLY_HEADERS
+                    });
+                    
+                    if (checkResponse.ok) {
+                        const checkData = await checkResponse.json();
+                        
+                        if (checkData.results && checkData.results.length > 0) {
+                            this.showToast('Email already subscribed to newsletter!', 'error');
+                            document.getElementById('newsletterEmail').value = '';
+                            return;
+                        }
+                    }
+                    
+                    // Subscribe new email
+                    const newsletterData = {
+                        emailID: email,
+                        subscribedAt: new Date().toISOString()
+                    };
+                    
+                    const response = await fetch(NEWSLETTER_API, {
+                        method: 'POST',
+                        headers: API_HEADERS,
+                        body: JSON.stringify(newsletterData)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Newsletter subscription failed: ${response.status}`);
+                    }
+                    
+                    document.getElementById('newsletterEmail').value = '';
+                    this.showToast('Successfully subscribed to newsletter! 📧', 'success');
+                    
+                } catch (error) {
+                    console.error('❌ Newsletter subscription error:', error);
+                    this.showToast(`Subscription failed: ${error.message}`, 'error');
+                } finally {
+                    this.hideLoading();
+                }
+            }
+            
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
             }
             
             initElements() {
@@ -1293,6 +1884,7 @@
                 // Editor elements
                 this.blogForm = document.getElementById('blogForm');
                 this.postId = document.getElementById('postId');
+                this.postRowIndex = document.getElementById('postRowIndex');
                 this.editorTitle = document.getElementById('editorTitle');
                 this.blogTitle = document.getElementById('blogTitle');
                 this.metaTitle = document.getElementById('metaTitle');
@@ -1300,6 +1892,9 @@
                 this.blogCategory = document.getElementById('blogCategory');
                 this.blogImage = document.getElementById('blogImage');
                 this.categoryTags = document.getElementById('categoryTags');
+                this.customCategoryDiv = document.getElementById('customCategoryDiv');
+                this.customCategoryInput = document.getElementById('customCategoryInput');
+                this.customCategoryBtn = document.getElementById('customCategoryBtn');
                 this.keyword1 = document.getElementById('keyword1');
                 this.keyword2 = document.getElementById('keyword2');
                 this.keyword3 = document.getElementById('keyword3');
@@ -1328,6 +1923,9 @@
                 // Category filters
                 this.categoryFilters = document.getElementById('categoryFilters');
 
+                // Newsletter elements
+                this.newsletterForm = document.getElementById('newsletterForm');
+
                 // Toast
                 this.toast = document.getElementById('toast');
                 this.toastMessage = document.getElementById('toastMessage');
@@ -1336,7 +1934,276 @@
                 this.loadingSpinner = document.getElementById('loadingSpinner');
             }
             
+            initRichTextEditor() {
+                // Initialize toolbar buttons
+                const toolbarBtns = document.querySelectorAll('.toolbar-btn[data-command]');
+                toolbarBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const command = btn.dataset.command;
+                        const value = btn.dataset.value || null;
+                        this.execCommand(command, value);
+                        this.updateToolbarState();
+                    });
+                });
+
+                // Heading selector
+                const headingSelect = document.getElementById('headingSelect');
+                headingSelect.addEventListener('change', (e) => {
+                    const value = e.target.value;
+                    if (value) {
+                        this.execCommand('formatBlock', `<${value}>`);
+                    } else {
+                        this.execCommand('formatBlock', '<p>');
+                    }
+                    this.updateToolbarState();
+                });
+
+                // Color pickers
+                const textColor = document.getElementById('textColor');
+                const backColor = document.getElementById('backColor');
+                
+                textColor.addEventListener('change', (e) => {
+                    this.execCommand('foreColor', e.target.value);
+                });
+                
+                backColor.addEventListener('change', (e) => {
+                    this.execCommand('hiliteColor', e.target.value);
+                });
+
+                // Special buttons
+                document.getElementById('insertLink').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.insertLink();
+                });
+
+                document.getElementById('insertImage').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.insertImage();
+                });
+
+                document.getElementById('insertTable').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.insertTable();
+                });
+
+                document.getElementById('clearFormat').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.execCommand('removeFormat');
+                    this.updateToolbarState();
+                });
+
+                // Update toolbar state on selection change
+                this.blogEditor.addEventListener('mouseup', () => this.updateToolbarState());
+                this.blogEditor.addEventListener('keyup', () => this.updateToolbarState());
+                this.blogEditor.addEventListener('focus', () => this.updateToolbarState());
+
+                // Handle paste events to clean up formatting
+                this.blogEditor.addEventListener('paste', (e) => {
+                    // Allow paste but clean it up after
+                    setTimeout(() => this.cleanupContent(), 10);
+                });
+
+                // Prevent toolbar from taking focus
+                document.querySelector('.editor-toolbar').addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                });
+            }
+
+            execCommand(command, value = null) {
+                // Focus the editor first
+                this.blogEditor.focus();
+                
+                // Execute the command
+                try {
+                    document.execCommand(command, false, value);
+                } catch (e) {
+                    console.warn('Command not supported:', command, e);
+                }
+            }
+
+            updateToolbarState() {
+                // Update button states based on current selection
+                const commands = ['bold', 'italic', 'underline', 'strikeThrough'];
+                
+                commands.forEach(command => {
+                    const btn = document.querySelector(`[data-command="${command}"]`);
+                    if (btn) {
+                        try {
+                            const isActive = document.queryCommandState(command);
+                            btn.classList.toggle('active', isActive);
+                        } catch (e) {
+                            // Command not supported
+                        }
+                    }
+                });
+
+                // Update heading selector
+                const headingSelect = document.getElementById('headingSelect');
+                const parentElement = window.getSelection().anchorNode?.parentElement;
+                if (parentElement) {
+                    const tagName = parentElement.tagName?.toLowerCase();
+                    if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)) {
+                        headingSelect.value = tagName;
+                    } else {
+                        headingSelect.value = '';
+                    }
+                }
+            }
+
+            insertLink() {
+                const selection = window.getSelection();
+                if (selection.rangeCount === 0) return;
+
+                const range = selection.getRangeAt(0);
+                const selectedText = range.toString();
+                
+                const url = prompt('Enter the URL:', 'https://');
+                if (url && url !== 'https://') {
+                    if (selectedText) {
+                        this.execCommand('createLink', url);
+                    } else {
+                        const linkText = prompt('Enter link text:', url);
+                        if (linkText) {
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.textContent = linkText;
+                            link.target = '_blank';
+                            range.insertNode(link);
+                            range.collapse(false);
+                            selection.removeAllRanges();
+                            selection.addRange(range);
+                        }
+                    }
+                }
+            }
+
+            insertImage() {
+                const url = prompt('Enter image URL:', 'https://');
+                if (url && url !== 'https://') {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = 'Blog image';
+                    img.style.maxWidth = '100%';
+                    img.style.height = 'auto';
+                    
+                    const selection = window.getSelection();
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        range.insertNode(img);
+                        range.collapse(false);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    } else {
+                        this.blogEditor.appendChild(img);
+                    }
+                }
+            }
+
+            insertTable() {
+                const rows = prompt('Number of rows:', '3');
+                const cols = prompt('Number of columns:', '3');
+                
+                if (rows && cols && !isNaN(rows) && !isNaN(cols)) {
+                    const table = document.createElement('table');
+                    table.style.width = '100%';
+                    table.style.borderCollapse = 'collapse';
+                    table.style.margin = '15px 0';
+                    
+                    for (let i = 0; i < parseInt(rows); i++) {
+                        const row = document.createElement('tr');
+                        for (let j = 0; j < parseInt(cols); j++) {
+                            const cell = document.createElement(i === 0 ? 'th' : 'td');
+                            cell.style.border = '1px solid #dfe6e9';
+                            cell.style.padding = '8px 12px';
+                            cell.textContent = i === 0 ? `Header ${j + 1}` : `Cell ${i}-${j + 1}`;
+                            row.appendChild(cell);
+                        }
+                        table.appendChild(row);
+                    }
+                    
+                    const selection = window.getSelection();
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        range.insertNode(table);
+                        range.collapse(false);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    } else {
+                        this.blogEditor.appendChild(table);
+                    }
+                }
+            }
+
+            cleanupContent() {
+                // Remove unwanted attributes and clean up pasted content
+                const editor = this.blogEditor;
+                const elements = editor.querySelectorAll('*');
+                
+                elements.forEach(el => {
+                    // Remove style attributes that might interfere
+                    const style = el.getAttribute('style');
+                    if (style) {
+                        // Keep only basic styles
+                        const allowedStyles = ['color', 'background-color', 'font-weight', 'font-style', 'text-decoration'];
+                        const styles = style.split(';').filter(s => {
+                            const prop = s.split(':')[0]?.trim().toLowerCase();
+                            return allowedStyles.includes(prop);
+                        });
+                        
+                        if (styles.length > 0) {
+                            el.setAttribute('style', styles.join(';'));
+                        } else {
+                            el.removeAttribute('style');
+                        }
+                    }
+                    
+                    // Remove other unwanted attributes
+                    const attributesToRemove = ['class', 'id', 'data-*'];
+                    attributesToRemove.forEach(attr => {
+                        if (attr.includes('*')) {
+                            // Remove data attributes
+                            Array.from(el.attributes).forEach(a => {
+                                if (a.name.startsWith('data-')) {
+                                    el.removeAttribute(a.name);
+                                }
+                            });
+                        } else {
+                            el.removeAttribute(attr);
+                        }
+                    });
+                });
+            }
+            
             initEventListeners() {
+                // Newsletter subscription
+                this.newsletterForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleNewsletterSubscription();
+                });
+
+                // Custom category functionality
+                this.customCategoryBtn.addEventListener('click', () => {
+                    const customCategory = this.customCategoryInput.value.trim();
+                    if (customCategory) {
+                        this.setCustomCategory(customCategory);
+                    } else {
+                        this.showToast('Please enter a category name', 'error');
+                    }
+                });
+
+                this.customCategoryInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const customCategory = this.customCategoryInput.value.trim();
+                        if (customCategory) {
+                            this.setCustomCategory(customCategory);
+                        } else {
+                            this.showToast('Please enter a category name', 'error');
+                        }
+                    }
+                });
+
                 // Auth events
                 this.loginLink.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1493,71 +2360,43 @@
                     e.preventDefault();
                     this.handleDeletePost();
                 });
-            }
-            
-            async loadInitialData() {
-                try {
-                    this.showLoading();
-                    const postsResponse = await fetch(`${POSTS_API}?limit=100`, {
-                        headers: READONLY_HEADERS
-                    });
-                    
-                    if (!postsResponse.ok) {
-                        throw new Error(`Failed to load posts: ${postsResponse.status}`);
+
+                // Page visibility change - refresh when user comes back to tab
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden && this.isOnline) {
+                        console.log('🔄 Page visible again, refreshing data...');
+                        this.loadDataFromAPI(false);
                     }
-                    
-                    const postsData = await postsResponse.json();
-                    
-                    if (postsData.results) {
-                        this.blogPosts = postsData.results.map(post => ({
-                            id: post.rowIndex,
-                            title: post.title,
-                            metaTitle: post.metaTitle || '',
-                            content: post.content ? this.safeDecodeContent(post.content) : '',
-                            category: post.category,
-                            image: post.image,
-                            authorId: post.authorId,
-                            authorName: post.authorName,
-                            date: post.date ? new Date(post.date).toLocaleDateString('en-US', { 
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric' 
-                            }) : 'Unknown date',
-                            keyword1: post.keyword1 || '',
-                            keyword2: post.keyword2 || '',
-                            keyword3: post.keyword3 || '',
-                            keyword4: post.keyword4 || '',
-                            keyword5: post.keyword5 || ''
-                        }));
-                        
-                        this.renderBlogPosts();
-                    }
-              
-                } finally {
-                    this.hideLoading();
-                }
+                });
             }
-            
-            safeDecodeContent(encodedContent) {
-                try {
-                    return decodeURIComponent(atob(encodedContent));
-                } catch (e) {
-                    return encodedContent;
-                }
-            }
-            
-            safeEncodeContent(content) {
-                try {
-                    return btoa(encodeURIComponent(content));
-                } catch (e) {
-                    console.error('Error encoding content:', e);
-                    return content;
-                }
+
+            setCustomCategory(categoryName) {
+                // Set the custom category as active
+                Array.from(this.categoryTags.children).forEach(tag => {
+                    tag.classList.remove('active');
+                });
+                
+                this.blogCategory.value = categoryName;
+                this.customCategoryDiv.style.display = 'none';
+                
+                // Create a temporary visual indicator
+                const tempTag = document.createElement('div');
+                tempTag.className = 'category-tag active';
+                tempTag.textContent = categoryName;
+                tempTag.style.background = 'linear-gradient(135deg, var(--info) 0%, #74b9ff 100%)';
+                tempTag.style.color = 'white';
+                
+                // Insert before the "Others" tag
+                const othersTag = document.querySelector('[data-category="others"]');
+                othersTag.parentNode.insertBefore(tempTag, othersTag);
+                
+                this.customCategoryInput.value = '';
+                this.showToast(`Custom category "${categoryName}" selected`, 'success');
             }
             
             async handleRegister() {
-                const name = this.registerName.value;
-                const email = this.registerEmail.value;
+                const name = this.registerName.value.trim();
+                const email = this.registerEmail.value.trim();
                 const password = this.registerPassword.value;
                 const confirmPassword = this.registerConfirmPassword.value;
                 
@@ -1578,19 +2417,19 @@
                 
                 try {
                     this.showLoading();
+                    
+                    // Check if user already exists
                     const checkResponse = await fetch(`${USERS_API}?where=${encodeURIComponent(JSON.stringify({email}))}`, {
                         headers: READONLY_HEADERS
                     });
                     
-                    if (!checkResponse.ok) {
-                        throw new Error('Failed to check user existence');
-                    }
-                    
-                    const checkData = await checkResponse.json();
-                    
-                    if (checkData.results && checkData.results.length > 0) {
-                        this.showToast('Email already registered', 'error');
-                        return;
+                    if (checkResponse.ok) {
+                        const checkData = await checkResponse.json();
+                        
+                        if (checkData.results && checkData.results.length > 0) {
+                            this.showToast('Email already registered', 'error');
+                            return;
+                        }
                     }
                     
                     const newUser = {
@@ -1607,13 +2446,13 @@
                     });
                     
                     if (!registerResponse.ok) {
-                        throw new Error('Registration failed');
+                        throw new Error(`Registration failed: ${registerResponse.status}`);
                     }
                     
                     const userData = await registerResponse.json();
                     
                     this.currentUser = {
-                        id: userData.rowIndex,
+                        id: userData.rowIndex || userData.id,
                         name: userData.name,
                         email: userData.email
                     };
@@ -1629,13 +2468,16 @@
                     this.showDashboard();
                     this.showToast('Registration successful! Welcome to BlogRack', 'success');
                     
-                                } finally {
+                } catch (error) {
+                    console.error('❌ Registration error:', error);
+                    this.showToast(`Registration failed: ${error.message}`, 'error');
+                } finally {
                     this.hideLoading();
                 }
             }
             
             async handleLogin() {
-                const email = this.loginEmail.value;
+                const email = this.loginEmail.value.trim();
                 const password = this.loginPassword.value;
                 
                 if (!email || !password) {
@@ -1650,15 +2492,15 @@
                     });
                     
                     if (!response.ok) {
-                        throw new Error('Login failed');
+                        throw new Error(`Login failed: ${response.status}`);
                     }
                     
                     const data = await response.json();
-                    
+
                     if (data.results && data.results.length > 0) {
                         const user = data.results[0];
                         this.currentUser = {
-                            id: user.rowIndex,
+                            id: user.rowIndex || user.id,
                             name: user.name,
                             email: user.email
                         };
@@ -1672,11 +2514,15 @@
                         this.showDashboard();
                         this.showToast(`Welcome back, ${user.name}!`, 'success');
                         
-                        await this.loadInitialData();
+                        // Reload posts after login
+                        await this.loadDataFromAPI();
                     } else {
                         this.showToast('Invalid email or password', 'error');
                     }
 
+                } catch (error) {
+                    console.error('❌ Login error:', error);
+                    this.showToast(`Login failed: ${error.message}`, 'error');
                 } finally {
                     this.hideLoading();
                 }
@@ -1688,34 +2534,40 @@
                     return;
                 }
                 
-                const title = this.blogTitle.value;
-                const metaTitle = this.metaTitle.value;
-                const content = this.safeEncodeContent(this.blogEditor.innerHTML);
+                const title = this.blogTitle.value.trim();
+                const metaTitle = this.metaTitle.value.trim();
+                const content = this.blogEditor.innerHTML.trim();
                 const category = this.blogCategory.value;
-                const image = this.blogImage.value;
+                const image = this.blogImage.value.trim();
                 
-                if (!title || !content || !category) {
-                    this.showToast('Please fill in all required fields', 'error');
+                if (!title || !content || content === '<br>' || content === '<p></p>' || !category) {
+                    this.showToast('Please fill in all required fields (title, content, category)', 'error');
                     return;
                 }
                 
                 try {
                     this.showLoading();
+                    
+                    // Clean up content before saving
+                    this.cleanupContent();
+                    
                     const newPost = {
                         title,
                         metaTitle: metaTitle || title,
-                        content,
+                        content: this.blogEditor.innerHTML, // Direct HTML storage
                         category,
-                        image: image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+                        image: image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
                         authorId: this.currentUser.email,
                         authorName: this.currentUser.name,
                         date: new Date().toISOString(),
-                        keyword1: this.keyword1.value || '',
-                        keyword2: this.keyword2.value || '',
-                        keyword3: this.keyword3.value || '',
-                        keyword4: this.keyword4.value || '',
-                        keyword5: this.keyword5.value || ''
+                        keyword1: this.keyword1.value.trim() || '',
+                        keyword2: this.keyword2.value.trim() || '',
+                        keyword3: this.keyword3.value.trim() || '',
+                        keyword4: this.keyword4.value.trim() || '',
+                        keyword5: this.keyword5.value.trim() || ''
                     };
+                    
+                    console.log('📝 Publishing post:', newPost);
                     
                     const response = await fetch(POSTS_API, {
                         method: 'POST',
@@ -1724,95 +2576,83 @@
                     });
                     
                     if (!response.ok) {
-                        throw new Error('Failed to publish post');
+                        throw new Error(`Failed to publish post: ${response.status}`);
                     }
                     
                     const postData = await response.json();
-                    
-                    this.blogPosts.unshift({
-                        id: postData.rowIndex,
-                        ...newPost,
-                        content: this.safeDecodeContent(newPost.content),
-                        date: new Date(newPost.date).toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
-                        })
-                    });
+                    console.log('✅ Post published successfully:', postData);
                     
                     this.resetEditorForm();
                     this.showDashboard();
                     this.showToast('Post published successfully!', 'success');
-                    this.renderBlogPosts();
+                    
+                    // Refresh data immediately to show new post
+                    await this.loadDataFromAPI(false);
                     
                 } catch (error) {
-                    console.error('Publish error:', error);
-                    this.showToast('Failed to publish post. Please try again.', 'error');
+                    console.error('❌ Publish error:', error);
+                    this.showToast(`Failed to publish post: ${error.message}`, 'error');
                 } finally {
                     this.hideLoading();
                 }
             }
             
             async handleUpdatePost() {
-                if (!this.currentUser || !this.postId.value) {
+                if (!this.currentUser || !this.postRowIndex.value) {
                     this.showToast('Please login to edit a post', 'error');
                     return;
                 }
                 
-                const title = this.blogTitle.value;
-                const metaTitle = this.metaTitle.value;
-                const content = this.safeEncodeContent(this.blogEditor.innerHTML);
+                const title = this.blogTitle.value.trim();
+                const metaTitle = this.metaTitle.value.trim();
+                const content = this.blogEditor.innerHTML.trim();
                 const category = this.blogCategory.value;
-                const image = this.blogImage.value;
+                const image = this.blogImage.value.trim();
                 
-                if (!title || !content || !category) {
+                if (!title || !content || content === '<br>' || content === '<p></p>' || !category) {
                     this.showToast('Please fill in all required fields', 'error');
                     return;
                 }
                 
                 try {
                     this.showLoading();
+                    
+                    // Clean up content before saving
+                    this.cleanupContent();
+                    
                     const updatedPost = {
                         title,
                         metaTitle: metaTitle || title,
-                        content,
+                        content: this.blogEditor.innerHTML, // Direct HTML storage
                         category,
-                        image: image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-                        keyword1: this.keyword1.value || '',
-                        keyword2: this.keyword2.value || '',
-                        keyword3: this.keyword3.value || '',
-                        keyword4: this.keyword4.value || '',
-                        keyword5: this.keyword5.value || ''
+                        image: image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
+                        keyword1: this.keyword1.value.trim() || '',
+                        keyword2: this.keyword2.value.trim() || '',
+                        keyword3: this.keyword3.value.trim() || '',
+                        keyword4: this.keyword4.value.trim() || '',
+                        keyword5: this.keyword5.value.trim() || ''
                     };
                     
-                    const response = await fetch(`${POSTS_API}/${this.postId.value}`, {
+                    const response = await fetch(`${POSTS_API}/${this.postRowIndex.value}`, {
                         method: 'PATCH',
                         headers: API_HEADERS,
                         body: JSON.stringify(updatedPost)
                     });
                     
                     if (!response.ok) {
-                        throw new Error('Failed to update post');
-                    }
-                    
-                    // Update local posts array
-                    const postIndex = this.blogPosts.findIndex(p => p.id === this.postId.value);
-                    if (postIndex !== -1) {
-                        this.blogPosts[postIndex] = {
-                            ...this.blogPosts[postIndex],
-                            ...updatedPost,
-                            content: this.safeDecodeContent(updatedPost.content)
-                        };
+                        throw new Error(`Failed to update post: ${response.status}`);
                     }
                     
                     this.resetEditorForm();
                     this.showDashboard();
                     this.showToast('Post updated successfully!', 'success');
-                    this.renderBlogPosts();
                     
+                    // Refresh data immediately to show updated post
+                    await this.loadDataFromAPI(false);
+
                 } catch (error) {
-                    console.error('Update error:', error);
-                    this.showToast('Failed to update post. Please try again.', 'error');
+                    console.error('❌ Update error:', error);
+                    this.showToast(`Failed to update post: ${error.message}`, 'error');
                 } finally {
                     this.hideLoading();
                 }
@@ -1825,33 +2665,37 @@
                     return;
                 }
                 
+                const post = this.blogPosts.find(p => p.id == this.currentPostId);
+                if (!post || !post.rowIndex) {
+                    this.showToast('Cannot delete post: missing row information', 'error');
+                    return;
+                }
+                
                 try {
                     this.showLoading();
-                    const response = await fetch(`${POSTS_API}/${this.currentPostId}`, {
+                    
+                    console.log('🗑️ Deleting post with rowIndex:', post.rowIndex);
+                    
+                    const response = await fetch(`${POSTS_API}/${post.rowIndex}`, {
                         method: 'DELETE',
                         headers: API_HEADERS
                     });
                     
                     if (!response.ok) {
-                        throw new Error('Failed to delete post');
+                        throw new Error(`Failed to delete post: ${response.status}`);
                     }
                     
-                    // Remove from local posts array
-                    this.blogPosts = this.blogPosts.filter(post => post.id !== this.currentPostId);
+                    console.log('✅ Post deleted successfully from sheet');
                     
                     this.showDashboard();
                     this.showToast('Post unpublished successfully', 'success');
                     
-                    // Re-render posts
-                    if (this.isMyPostsView) {
-                        this.showMyPosts();
-                    } else {
-                        this.renderBlogPosts();
-                    }
+                    // Refresh data immediately to reflect deletion
+                    await this.loadDataFromAPI(false);
                     
                 } catch (error) {
-                    console.error('Delete error:', error);
-                    this.showToast('Failed to unpublish post. Please try again.', 'error');
+                    console.error('❌ Delete error:', error);
+                    this.showToast(`Failed to unpublish post: ${error.message}`, 'error');
                 } finally {
                     this.hideLoading();
                 }
@@ -1870,15 +2714,31 @@
                 Array.from(this.categoryTags.children).forEach(tag => {
                     tag.classList.remove('active');
                 });
+                
+                // Remove any temporary custom category tags
+                const tempTags = document.querySelectorAll('.category-tag:not([data-category])');
+                tempTags.forEach(tag => tag.remove());
+                
+                this.blogCategory.value = '';
                 this.postId.value = '';
+                this.postRowIndex.value = '';
                 this.isEditing = false;
                 this.editorTitle.textContent = 'Create New Post';
                 this.publishBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Post';
                 this.editorActions.style.display = 'none';
+                this.customCategoryDiv.style.display = 'none';
+                
+                // Reset toolbar state
+                document.querySelectorAll('.toolbar-btn.active').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.getElementById('headingSelect').value = '';
+                document.getElementById('textColor').value = '#000000';
+                document.getElementById('backColor').value = '#ffffff';
             }
             
             checkAuthState() {
-                const user = JSON.parse(localStorage.getItem('blograck-current-user'));
+                const user = JSON.parse(localStorage.getItem('blograck-current-user') || 'null');
                 if (user) {
                     this.currentUser = user;
                     this.updateAuthUI();
@@ -1932,11 +2792,19 @@
                 this.hideAllSections();
                 this.editorSection.style.display = 'block';
                 this.resetEditorForm();
+                
+                // Focus the editor
+                setTimeout(() => {
+                    this.blogEditor.focus();
+                }, 100);
             }
             
             showEditorForEdit() {
-                const post = this.blogPosts.find(p => p.id === this.currentPostId);
-                if (!post) return;
+                const post = this.blogPosts.find(p => p.id == this.currentPostId);
+                if (!post) {
+                    this.showToast('Post not found', 'error');
+                    return;
+                }
                 
                 this.hideAllSections();
                 this.editorSection.style.display = 'block';
@@ -1946,17 +2814,32 @@
                 this.editorActions.style.display = 'flex';
                 
                 this.postId.value = this.currentPostId;
+                this.postRowIndex.value = post.rowIndex;
                 this.blogTitle.value = post.title;
                 this.metaTitle.value = post.metaTitle;
                 
-                // Set category
+                // Set category - handle both predefined and custom
+                const predefinedCategories = ['technology', 'travel', 'lifestyle', 'business', 'health', 'education', 'others'];
+                const postCategory = post.category.toLowerCase();
+                
                 Array.from(this.categoryTags.children).forEach(tag => {
                     tag.classList.remove('active');
-                    if (tag.dataset.category === post.category.toLowerCase()) {
+                    if (tag.dataset.category === postCategory) {
                         tag.classList.add('active');
                     }
                 });
-                this.blogCategory.value = post.category;
+                
+                if (predefinedCategories.includes(postCategory)) {
+                    this.blogCategory.value = post.category;
+                    this.customCategoryDiv.style.display = 'none';
+                } else {
+                    // Custom category
+                    const othersTag = document.querySelector('[data-category="others"]');
+                    othersTag.classList.add('active');
+                    this.blogCategory.value = post.category;
+                    this.customCategoryInput.value = post.category;
+                    this.customCategoryDiv.style.display = 'flex';
+                }
                 
                 this.blogImage.value = post.image;
                 this.keyword1.value = post.keyword1;
@@ -1965,24 +2848,39 @@
                 this.keyword4.value = post.keyword4;
                 this.keyword5.value = post.keyword5;
                 
+                // Set editor content and focus
                 this.blogEditor.innerHTML = post.content;
+                setTimeout(() => {
+                    this.blogEditor.focus();
+                    this.updateToolbarState();
+                }, 100);
             }
             
             showBlogDetail(postId) {
+                console.log('🔍 Showing blog detail for post ID:', postId);
+                console.log('📚 Available posts:', this.blogPosts.map(p => ({id: p.id, title: p.title})));
+                
                 this.hideAllSections();
-                const post = this.blogPosts.find(p => p.id === postId);
+                
+                const post = this.blogPosts.find(p => String(p.id) === String(postId));
+                
                 if (post) {
+                    console.log('✅ Post found:', post);
                     this.currentPostId = postId;
+                    
                     this.detailTitle.textContent = post.title;
                     this.detailAuthor.textContent = `By ${post.authorName}`;
                     this.detailDate.textContent = `Published on ${post.date}`;
                     this.detailCategory.textContent = post.category;
                     this.detailCategory.className = 'blog-detail-category';
                     this.detailCategory.classList.add(this.getCategoryClass(post.category));
+                    
+                    // Render HTML content properly
                     this.detailContent.innerHTML = post.content;
                     
-                    if (post.image) {
-                        this.detailContent.insertAdjacentHTML('afterbegin', `<img src="${post.image}" alt="${post.title}">`);
+                    // Add featured image if different from default
+                    if (post.image && !post.image.includes('photo-1499750310107-5fef28a66643')) {
+                        this.detailContent.insertAdjacentHTML('afterbegin', `<img src="${post.image}" alt="${post.title}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; margin-bottom: 30px;">`);
                     }
                     
                     // Show action buttons only if current user is the author
@@ -1993,6 +2891,12 @@
                     }
                     
                     this.blogDetail.style.display = 'block';
+                    
+                    console.log('✅ Blog detail view rendered successfully');
+                } else {
+                    console.error('❌ Post not found for ID:', postId);
+                    this.showToast('Post not found', 'error');
+                    this.showDashboard();
                 }
             }
             
@@ -2031,7 +2935,15 @@
             selectCategory(tag) {
                 Array.from(this.categoryTags.children).forEach(t => t.classList.remove('active'));
                 tag.classList.add('active');
-                this.blogCategory.value = tag.dataset.category;
+                
+                if (tag.dataset.category === 'others') {
+                    this.customCategoryDiv.style.display = 'flex';
+                    this.customCategoryInput.focus();
+                    this.blogCategory.value = '';
+                } else {
+                    this.customCategoryDiv.style.display = 'none';
+                    this.blogCategory.value = tag.dataset.category;
+                }
             }
             
             filterPosts(filter) {
@@ -2072,12 +2984,18 @@
             }
             
             renderBlogPosts(category = null, postsToRender = null) {
+                console.log('🎨 Rendering blog posts...', { 
+                    category, 
+                    postsToRender: postsToRender?.length, 
+                    totalPosts: this.blogPosts.length 
+                });
+                
                 this.blogGrid.innerHTML = '';
                 
                 let filteredPosts = postsToRender || this.blogPosts;
                 
                 if (category && category !== 'all') {
-                    filteredPosts = filteredPosts.filter(post => post.category === category);
+                    filteredPosts = filteredPosts.filter(post => post.category.toLowerCase() === category.toLowerCase());
                 }
                 
                 if (this.currentSearchTerm) {
@@ -2093,11 +3011,13 @@
                     );
                 }
                 
+                console.log('📊 Filtered posts count:', filteredPosts.length);
+                
                 if (filteredPosts.length === 0) {
                     this.blogGrid.innerHTML = `
                         <div class="no-posts" style="grid-column: 1/-1; text-align: center; padding: 40px;">
                             <h3>No posts found</h3>
-                            <p>Be the first to write one!</p>
+                            <p>${this.currentUser ? 'Be the first to write one!' : 'Register to start writing!'}</p>
                         </div>
                     `;
                     return;
@@ -2110,10 +3030,12 @@
                     
                     const postElement = document.createElement('div');
                     postElement.className = 'blog-card';
+                    postElement.setAttribute('data-post-id', post.id);
+                    
                     postElement.innerHTML = `
                         ${post.image ? `
                         <div class="blog-card-img">
-                            <img src="${post.image}" alt="${post.title}">
+                            <img src="${post.image}" alt="${post.title}" onerror="this.parentElement.innerHTML='<div style=\\'background: linear-gradient(135deg, ${this.getCategoryColor(post.category)}); display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-size: 3rem; opacity: 0.7;\\'><i class=\\'fas fa-feather-alt\\'></i></div>'">
                         </div>
                         ` : `
                         <div class="blog-card-img" style="background: linear-gradient(135deg, ${this.getCategoryColor(post.category)});">
@@ -2137,11 +3059,14 @@
                     `;
                     
                     postElement.addEventListener('click', () => {
+                        console.log('🖱️ Blog card clicked for post:', post.id, post.title);
                         this.showBlogDetail(post.id);
                     });
                     
                     this.blogGrid.appendChild(postElement);
                 });
+                
+                console.log('✅ Blog posts rendered successfully');
             }
             
             getExcerpt(content, length = 120) {
@@ -2154,10 +3079,10 @@
                     const text = div.textContent || div.innerText || '';
                     
                     return text.length > length 
-                        ? text.substring(0, length) + '...' 
+                        ? text.substring(0, length).trim() + '...' 
                         : text;
                 } catch (e) {
-                    console.error('Error generating excerpt:', e);
+                    console.error('❌ Error generating excerpt:', e);
                     return 'Click to read more...';
                 }
             }
@@ -2169,9 +3094,10 @@
                     'lifestyle': 'gradient-danger-bg',
                     'business': 'gradient-warning-bg',
                     'health': 'gradient-accent-bg',
-                    'education': 'gradient-bg'
+                    'education': 'gradient-info-bg',
+                    'others': 'gradient-info-bg'
                 };
-                return classes[category.toLowerCase()] || 'gradient-bg';
+                return classes[category.toLowerCase()] || 'gradient-info-bg';
             }
             
             getCategoryColor(category) {
@@ -2181,9 +3107,10 @@
                     'lifestyle': '#d63031, #ff7675',
                     'business': '#fdcb6e, #ffeaa7',
                     'health': '#fd79a8, #ff7675',
-                    'education': '#0984e3, #74b9ff'
+                    'education': '#0984e3, #74b9ff',
+                    'others': '#0984e3, #74b9ff'
                 };
-                return colors[category.toLowerCase()] || '#6c5ce7, #a29bfe';
+                return colors[category.toLowerCase()] || '#0984e3, #74b9ff';
             }
             
             showToast(message, type = 'success') {
@@ -2214,11 +3141,19 @@
             }
         }
 
-        // Initialize the application
+        // Initialize the application when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            const app = new BlogRackApp();
-            
-                   });
+            console.log('🚀 DOM loaded, initializing BlogRack app...');
+            try {
+                const app = new BlogRackApp();
+                console.log('✅ BlogRack app initialized successfully');
+                
+                // Make app globally accessible for debugging
+                window.blogApp = app;
+            } catch (error) {
+                console.error('❌ Failed to initialize BlogRack app:', error);
+            }
+        });
     </script>
 </body>
 </html>
