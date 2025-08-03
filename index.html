@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogRack - Professional Blogging Platform</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -96,14 +97,25 @@
         .logo {
             font-size: 28px;
             font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo img {
+            height: 55px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         nav ul {
@@ -264,40 +276,6 @@
             margin: 0 auto 40px;
         }
 
-        .realtime-indicator {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            padding: 10px 15px;
-            background: var(--success);
-            color: white;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .realtime-indicator.offline {
-            background: var(--danger);
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: white;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
         .search-container {
             display: flex;
             margin-bottom: 30px;
@@ -390,6 +368,7 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            position: relative;
         }
 
         .blog-card:hover {
@@ -476,6 +455,31 @@
             font-weight: bold;
         }
 
+        .share-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--primary);
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
         .auth-form {
             max-width: 500px;
             margin: 50px auto;
@@ -553,7 +557,6 @@
             font-size: 32px;
         }
 
-        /* Rich Text Editor Toolbar Styles */
         .editor-toolbar {
             display: flex;
             flex-wrap: wrap;
@@ -658,7 +661,6 @@
             box-shadow: 0 5px 15px rgba(108, 92, 231, 0.1);
         }
 
-        /* Rich text content styles */
         #blogEditor h1, #blogEditor h2, #blogEditor h3, #blogEditor h4, #blogEditor h5, #blogEditor h6 {
             margin: 20px 0 10px 0;
             color: var(--primary);
@@ -1075,28 +1077,34 @@
             transform: translateX(5px);
         }
 
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
+        .footer-column .footer-link {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 18px;
         }
 
-        .social-links a {
+        .footer-column .footer-link:hover {
+            color: white;
+            transform: none;
+        }
+
+        .footer-logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 20px;
-            transition: var(--transition);
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-5px);
+        .footer-logo img {
+            height: 45px;
+            width: auto;
+        }
+
+        .footer-logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
         }
 
         .footer-bottom {
@@ -1195,10 +1203,20 @@
                 font-size: 14px;
             }
 
-            .realtime-indicator {
-                top: auto;
-                bottom: 20px;
-                right: 20px;
+            .logo img {
+                height: 40px;
+            }
+
+            .logo-text {
+                font-size: 24px;
+            }
+
+            .footer-logo img {
+                height: 35px;
+            }
+
+            .footer-logo-text {
+                font-size: 20px;
             }
         }
 
@@ -1218,6 +1236,30 @@
             .search-btn {
                 width: 100%;
             }
+
+            .logo {
+                gap: 6px;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+
+            .footer-logo {
+                gap: 6px;
+            }
+
+            .footer-logo img {
+                height: 30px;
+            }
+
+            .footer-logo-text {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -1226,17 +1268,11 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- Real-time indicator -->
-    <div class="realtime-indicator" id="realtimeIndicator">
-        <div class="pulse-dot"></div>
-        <span id="realtimeStatus">Live Data</span>
-    </div>
-
     <header>
         <div class="container header-content">
             <a href="#" class="logo" id="logo">
-                <i class="fas fa-blog"></i>
-                BlogRack
+                <img src="logo.png" alt="BlogRack Logo">
+                <span class="logo-text">BlogRack</span>
             </a>
             <nav>
                 <ul>
@@ -1403,9 +1439,7 @@
                 <div class="form-group">
                     <label><h3>Content</h3></label>
                     
-                    <!-- Rich Text Editor Toolbar -->
                     <div class="editor-toolbar">
-                        <!-- Text Formatting Group -->
                         <div class="toolbar-group">
                             <button type="button" class="toolbar-btn" data-command="bold" title="Bold">
                                 <i class="fas fa-bold"></i>
@@ -1421,7 +1455,6 @@
                             </button>
                         </div>
 
-                        <!-- Heading Group -->
                         <div class="toolbar-group">
                             <select class="toolbar-select" id="headingSelect">
                                 <option value="">Normal</option>
@@ -1434,7 +1467,6 @@
                             </select>
                         </div>
 
-                        <!-- List Group -->
                         <div class="toolbar-group">
                             <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
                                 <i class="fas fa-list-ul"></i>
@@ -1450,7 +1482,6 @@
                             </button>
                         </div>
 
-                        <!-- Alignment Group -->
                         <div class="toolbar-group">
                             <button type="button" class="toolbar-btn" data-command="justifyLeft" title="Align Left">
                                 <i class="fas fa-align-left"></i>
@@ -1466,7 +1497,6 @@
                             </button>
                         </div>
 
-                        <!-- Insert Group -->
                         <div class="toolbar-group">
                             <button type="button" class="toolbar-btn" id="insertLink" title="Insert Link">
                                 <i class="fas fa-link"></i>
@@ -1482,7 +1512,6 @@
                             </button>
                         </div>
 
-                        <!-- Color Group -->
                         <div class="toolbar-group">
                             <div class="color-picker" title="Text Color">
                                 <input type="color" id="textColor" value="#000000">
@@ -1492,7 +1521,6 @@
                             </div>
                         </div>
 
-                        <!-- Actions Group -->
                         <div class="toolbar-group">
                             <button type="button" class="toolbar-btn" data-command="undo" title="Undo">
                                 <i class="fas fa-undo"></i>
@@ -1506,7 +1534,6 @@
                         </div>
                     </div>
 
-                    <!-- Rich Text Editor Content Area -->
                     <div id="blogEditor" contenteditable="true" placeholder="Write your blog content here..."></div>
                 </div>
                 
@@ -1541,6 +1568,9 @@
                 <button id="deletePostBtn" class="btn btn-danger">
                     <i class="fas fa-trash"></i> Unpublish Post
                 </button>
+                <button id="sharePostBtn" class="btn btn-outline">
+                    <i class="fas fa-share-alt"></i> Share Post
+                </button>
             </div>
         </div>
     </main>
@@ -1549,35 +1579,23 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>BlogRack</h3>
-                    <p>Your professional blogging platform to share ideas, stories, and knowledge with the world.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="footer-logo">
+                        <img src="logo.png" alt="BlogRack Logo">
+                        <span class="footer-logo-text">BlogRack</span>
                     </div>
+                    <p>Your professional blogging platform to share ideas, stories, and knowledge with the world.</p>
                 </div>
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Categories</h3>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Technology</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Travel</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Lifestyle</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Business</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Health</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Education</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Others</a></li>
-                    </ul>
+                    <h3>Contact</h3>
+                    <p><a href="mailto:blograckconnect@gmail.com" class="footer-link">Contact Us</a></p>
                 </div>
                 <div class="footer-column">
                     <h3>Newsletter</h3>
@@ -1655,41 +1673,20 @@
                 this.startRealtimeSync();
             }
             
-            // Start real-time data synchronization
             startRealtimeSync() {
                 console.log('🔄 Starting real-time sync...');
                 
-                // Initial load
                 this.loadDataFromAPI();
                 
-                // Set up automatic refresh every 10 seconds
                 this.refreshInterval = setInterval(() => {
-                    this.loadDataFromAPI(false); // Silent refresh
+                    this.loadDataFromAPI(false);
                 }, 10000);
-                
-                // Update real-time indicator
-                this.updateRealtimeIndicator(true);
             }
             
             stopRealtimeSync() {
                 if (this.refreshInterval) {
                     clearInterval(this.refreshInterval);
                     this.refreshInterval = null;
-                }
-                this.updateRealtimeIndicator(false);
-            }
-            
-            updateRealtimeIndicator(isOnline) {
-                this.isOnline = isOnline;
-                const indicator = document.getElementById('realtimeIndicator');
-                const status = document.getElementById('realtimeStatus');
-                
-                if (isOnline) {
-                    indicator.classList.remove('offline');
-                    status.textContent = 'Live Data';
-                } else {
-                    indicator.classList.add('offline');
-                    status.textContent = 'Offline';
                 }
             }
             
@@ -1701,11 +1698,10 @@
                         this.showLoading();
                     }
                     
-                    // Fetch fresh data from API - NO CACHING
                     const timestamp = Date.now();
                     const postsResponse = await fetch(`${POSTS_API}?limit=100&_t=${timestamp}`, {
                         headers: READONLY_HEADERS,
-                        cache: 'no-cache' // Disable caching
+                        cache: 'no-cache'
                     });
                     
                     if (!postsResponse.ok) {
@@ -1718,7 +1714,6 @@
                     if (postsData && postsData.results && Array.isArray(postsData.results)) {
                         console.log(`✅ Processing ${postsData.results.length} posts from sheet`);
                         
-                        // Clear existing posts and load fresh data
                         this.blogPosts = [];
                         
                         this.blogPosts = postsData.results.map((post, index) => {
@@ -1753,7 +1748,6 @@
                         
                         console.log('✅ Fresh blog posts loaded:', this.blogPosts.length);
                         this.renderBlogPosts();
-                        this.updateRealtimeIndicator(true);
                     } else {
                         console.log('⚠️ No posts found in API response');
                         this.blogPosts = [];
@@ -1762,7 +1756,6 @@
                     
                 } catch (error) {
                     console.error('❌ Error loading data from API:', error);
-                    this.updateRealtimeIndicator(false);
                     
                     if (showLoading) {
                         this.showToast(`Failed to load latest data: ${error.message}`, 'error');
@@ -1790,7 +1783,6 @@
                 try {
                     this.showLoading();
                     
-                    // Check if email already exists
                     const checkResponse = await fetch(`${NEWSLETTER_API}?where=${encodeURIComponent(JSON.stringify({emailID: email}))}`, {
                         headers: READONLY_HEADERS
                     });
@@ -1805,7 +1797,6 @@
                         }
                     }
                     
-                    // Subscribe new email
                     const newsletterData = {
                         emailID: email,
                         subscribedAt: new Date().toISOString()
@@ -1835,6 +1826,27 @@
             isValidEmail(email) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return emailRegex.test(email);
+            }
+            
+            // Share blog functionality
+            shareBlog(postId) {
+                const baseURL = window.location.origin + window.location.pathname;
+                const shareURL = `${baseURL}?post=${encodeURIComponent(postId)}`;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Check out this blog post from BlogRack',
+                        url: shareURL
+                    }).catch(err => console.log('Error sharing:', err));
+                } else {
+                    // Fallback to clipboard
+                    navigator.clipboard.writeText(shareURL).then(() => {
+                        this.showToast('Blog link copied to clipboard! 📋', 'success');
+                    }).catch(() => {
+                        // Final fallback - show URL in alert
+                        alert(`Share this blog: ${shareURL}`);
+                    });
+                }
             }
             
             initElements() {
@@ -1913,6 +1925,7 @@
                 this.postActions = document.getElementById('postActions');
                 this.editPostBtn = document.getElementById('editPostBtn');
                 this.deletePostBtn = document.getElementById('deletePostBtn');
+                this.sharePostBtn = document.getElementById('sharePostBtn');
                 this.unpublishBtn = document.getElementById('unpublishBtn');
 
                 // Search elements
@@ -2000,7 +2013,6 @@
 
                 // Handle paste events to clean up formatting
                 this.blogEditor.addEventListener('paste', (e) => {
-                    // Allow paste but clean it up after
                     setTimeout(() => this.cleanupContent(), 10);
                 });
 
@@ -2011,10 +2023,8 @@
             }
 
             execCommand(command, value = null) {
-                // Focus the editor first
                 this.blogEditor.focus();
                 
-                // Execute the command
                 try {
                     document.execCommand(command, false, value);
                 } catch (e) {
@@ -2023,7 +2033,6 @@
             }
 
             updateToolbarState() {
-                // Update button states based on current selection
                 const commands = ['bold', 'italic', 'underline', 'strikeThrough'];
                 
                 commands.forEach(command => {
@@ -2038,7 +2047,6 @@
                     }
                 });
 
-                // Update heading selector
                 const headingSelect = document.getElementById('headingSelect');
                 const parentElement = window.getSelection().anchorNode?.parentElement;
                 if (parentElement) {
@@ -2136,15 +2144,12 @@
             }
 
             cleanupContent() {
-                // Remove unwanted attributes and clean up pasted content
                 const editor = this.blogEditor;
                 const elements = editor.querySelectorAll('*');
                 
                 elements.forEach(el => {
-                    // Remove style attributes that might interfere
                     const style = el.getAttribute('style');
                     if (style) {
-                        // Keep only basic styles
                         const allowedStyles = ['color', 'background-color', 'font-weight', 'font-style', 'text-decoration'];
                         const styles = style.split(';').filter(s => {
                             const prop = s.split(':')[0]?.trim().toLowerCase();
@@ -2158,11 +2163,9 @@
                         }
                     }
                     
-                    // Remove other unwanted attributes
                     const attributesToRemove = ['class', 'id', 'data-*'];
                     attributesToRemove.forEach(attr => {
                         if (attr.includes('*')) {
-                            // Remove data attributes
                             Array.from(el.attributes).forEach(a => {
                                 if (a.name.startsWith('data-')) {
                                     el.removeAttribute(a.name);
@@ -2361,9 +2364,15 @@
                     this.handleDeletePost();
                 });
 
+                // Share button
+                this.sharePostBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.shareBlog(this.currentPostId);
+                });
+
                 // Page visibility change - refresh when user comes back to tab
                 document.addEventListener('visibilitychange', () => {
-                    if (!document.hidden && this.isOnline) {
+                    if (!document.hidden) {
                         console.log('🔄 Page visible again, refreshing data...');
                         this.loadDataFromAPI(false);
                     }
@@ -2371,7 +2380,6 @@
             }
 
             setCustomCategory(categoryName) {
-                // Set the custom category as active
                 Array.from(this.categoryTags.children).forEach(tag => {
                     tag.classList.remove('active');
                 });
@@ -2379,14 +2387,12 @@
                 this.blogCategory.value = categoryName;
                 this.customCategoryDiv.style.display = 'none';
                 
-                // Create a temporary visual indicator
                 const tempTag = document.createElement('div');
                 tempTag.className = 'category-tag active';
                 tempTag.textContent = categoryName;
                 tempTag.style.background = 'linear-gradient(135deg, var(--info) 0%, #74b9ff 100%)';
                 tempTag.style.color = 'white';
                 
-                // Insert before the "Others" tag
                 const othersTag = document.querySelector('[data-category="others"]');
                 othersTag.parentNode.insertBefore(tempTag, othersTag);
                 
@@ -2418,7 +2424,6 @@
                 try {
                     this.showLoading();
                     
-                    // Check if user already exists
                     const checkResponse = await fetch(`${USERS_API}?where=${encodeURIComponent(JSON.stringify({email}))}`, {
                         headers: READONLY_HEADERS
                     });
@@ -2514,7 +2519,6 @@
                         this.showDashboard();
                         this.showToast(`Welcome back, ${user.name}!`, 'success');
                         
-                        // Reload posts after login
                         await this.loadDataFromAPI();
                     } else {
                         this.showToast('Invalid email or password', 'error');
@@ -2548,13 +2552,12 @@
                 try {
                     this.showLoading();
                     
-                    // Clean up content before saving
                     this.cleanupContent();
                     
                     const newPost = {
                         title,
                         metaTitle: metaTitle || title,
-                        content: this.blogEditor.innerHTML, // Direct HTML storage
+                        content: this.blogEditor.innerHTML,
                         category,
                         image: image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
                         authorId: this.currentUser.email,
@@ -2586,7 +2589,6 @@
                     this.showDashboard();
                     this.showToast('Post published successfully!', 'success');
                     
-                    // Refresh data immediately to show new post
                     await this.loadDataFromAPI(false);
                     
                 } catch (error) {
@@ -2617,13 +2619,12 @@
                 try {
                     this.showLoading();
                     
-                    // Clean up content before saving
                     this.cleanupContent();
                     
                     const updatedPost = {
                         title,
                         metaTitle: metaTitle || title,
-                        content: this.blogEditor.innerHTML, // Direct HTML storage
+                        content: this.blogEditor.innerHTML,
                         category,
                         image: image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
                         keyword1: this.keyword1.value.trim() || '',
@@ -2647,7 +2648,6 @@
                     this.showDashboard();
                     this.showToast('Post updated successfully!', 'success');
                     
-                    // Refresh data immediately to show updated post
                     await this.loadDataFromAPI(false);
 
                 } catch (error) {
@@ -2690,7 +2690,6 @@
                     this.showDashboard();
                     this.showToast('Post unpublished successfully', 'success');
                     
-                    // Refresh data immediately to reflect deletion
                     await this.loadDataFromAPI(false);
                     
                 } catch (error) {
@@ -2715,7 +2714,6 @@
                     tag.classList.remove('active');
                 });
                 
-                // Remove any temporary custom category tags
                 const tempTags = document.querySelectorAll('.category-tag:not([data-category])');
                 tempTags.forEach(tag => tag.remove());
                 
@@ -2728,7 +2726,6 @@
                 this.editorActions.style.display = 'none';
                 this.customCategoryDiv.style.display = 'none';
                 
-                // Reset toolbar state
                 document.querySelectorAll('.toolbar-btn.active').forEach(btn => {
                     btn.classList.remove('active');
                 });
@@ -2793,7 +2790,6 @@
                 this.editorSection.style.display = 'block';
                 this.resetEditorForm();
                 
-                // Focus the editor
                 setTimeout(() => {
                     this.blogEditor.focus();
                 }, 100);
@@ -2818,7 +2814,6 @@
                 this.blogTitle.value = post.title;
                 this.metaTitle.value = post.metaTitle;
                 
-                // Set category - handle both predefined and custom
                 const predefinedCategories = ['technology', 'travel', 'lifestyle', 'business', 'health', 'education', 'others'];
                 const postCategory = post.category.toLowerCase();
                 
@@ -2833,7 +2828,6 @@
                     this.blogCategory.value = post.category;
                     this.customCategoryDiv.style.display = 'none';
                 } else {
-                    // Custom category
                     const othersTag = document.querySelector('[data-category="others"]');
                     othersTag.classList.add('active');
                     this.blogCategory.value = post.category;
@@ -2848,7 +2842,6 @@
                 this.keyword4.value = post.keyword4;
                 this.keyword5.value = post.keyword5;
                 
-                // Set editor content and focus
                 this.blogEditor.innerHTML = post.content;
                 setTimeout(() => {
                     this.blogEditor.focus();
@@ -2875,15 +2868,12 @@
                     this.detailCategory.className = 'blog-detail-category';
                     this.detailCategory.classList.add(this.getCategoryClass(post.category));
                     
-                    // Render HTML content properly
                     this.detailContent.innerHTML = post.content;
                     
-                    // Add featured image if different from default
                     if (post.image && !post.image.includes('photo-1499750310107-5fef28a66643')) {
                         this.detailContent.insertAdjacentHTML('afterbegin', `<img src="${post.image}" alt="${post.title}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; margin-bottom: 30px;">`);
                     }
                     
-                    // Show action buttons only if current user is the author
                     if (this.currentUser && this.currentUser.email === post.authorId) {
                         this.postActions.style.display = 'flex';
                     } else {
@@ -3044,6 +3034,9 @@
                             </div>
                         </div>
                         `}
+                        <button class="share-btn" onclick="event.stopPropagation(); blogApp.shareBlog('${post.id}')">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
                         <div class="blog-card-content">
                             <span class="blog-card-category ${categoryClass}">${post.category}</span>
                             <h3 class="blog-card-title">${post.title}</h3>
@@ -3148,7 +3141,7 @@
                 const app = new BlogRackApp();
                 console.log('✅ BlogRack app initialized successfully');
                 
-                // Make app globally accessible for debugging
+                // Make app globally accessible for share functionality
                 window.blogApp = app;
             } catch (error) {
                 console.error('❌ Failed to initialize BlogRack app:', error);
